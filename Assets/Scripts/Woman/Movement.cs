@@ -57,6 +57,7 @@ public class Movement : MonoBehaviour
             else
             {
                 _rigidbody.velocity = Vector3.zero;
+                _rigidbody.angularVelocity = Vector3.zero;
             }
         }
     }
