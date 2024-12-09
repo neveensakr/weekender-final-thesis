@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -29,30 +25,23 @@ public class Movement : MonoBehaviour
     void Update()
     {
         if (_movementEnabled)
-        {
-            if (_rigidbody.velocity != Vector3.zero)
-            {
-                _animator.SetBool("isWalking", true);
-            }
-            else
-            {
-                _animator.SetBool("isWalking", false);
-            }
-        }
+            _animator.SetBool("isWalking", _rigidbody.velocity != Vector3.zero);
     }
 
     private void FixedUpdate()
     {
         if (_movementEnabled)
         {
-            float verticalMovement = Input.GetAxisRaw("Vertical");
-            
-            if (verticalMovement >= 0.1f)
+            float horizontalInput = Input.GetAxisRaw("Horizontal");
+            float verticalInput = Input.GetAxisRaw("Vertical");
+            Vector3 inputDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+
+            if (inputDirection.magnitude > 0.1f)
             {
-                float angleToRotateTo = verticalMovement + _camera.eulerAngles.y;
-                transform.rotation = Quaternion.Euler(0f, angleToRotateTo, 0f);
-                Vector3 moveDirection = (Quaternion.Euler(0f, angleToRotateTo, 0f) * Vector3.forward).normalized;
-                _rigidbody.AddForce(moveDirection * (_speed * Time.deltaTime), ForceMode.Impulse);
+                float angleToRotateTo = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
+                transform.rotation = Quaternion.Euler(0f, angleToRotateTo , 0f);
+                Vector3 moveDirection = Quaternion.Euler(0f, angleToRotateTo , 0f) * Vector3.forward;
+                _rigidbody.velocity = moveDirection.normalized * _speed;
             }
             else
             {
