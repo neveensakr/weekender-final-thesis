@@ -11,6 +11,10 @@ public class StateMachineManager : MonoBehaviour
     [SerializeField] private MultiRotationConstraint _leftArmRotationConstraint;
     [SerializeField] private MultiRotationConstraint _rightArmRotationConstraint;
     [SerializeField] private CapsuleCollider _playerCollider;
+    [SerializeField] private Vector3 _leftTargetRotation = -Vector3.up;
+    [SerializeField] private Vector3 _leftContactOffSet = Vector3.zero;
+    [SerializeField] private Vector3 _rightTargetRotation = -Vector3.up;
+    [SerializeField] private Vector3 _rightContactOffSet = Vector3.zero;
 
     private Dictionary<ObjectInteractionState, BaseState> _states;
     private ObjectInteractionUtilityFunctions _utilityFunctions;
@@ -32,6 +36,11 @@ public class StateMachineManager : MonoBehaviour
     
     void Update()
     {
+        _utilityFunctions._leftTargetRotationDirection = _leftTargetRotation;
+        _utilityFunctions._leftTargetContactOffSet = _leftContactOffSet;
+        _utilityFunctions._rightTargetRotationDirection = _rightTargetRotation;
+        _utilityFunctions._rightTargetContactOffSet = _rightContactOffSet;
+        
         UpdateInteractableObjDetectorPosition();
         Debug.Log("Updating " + _currentState);
         _currentState.UpdateState();
@@ -70,7 +79,7 @@ public class StateMachineManager : MonoBehaviour
         if (_interactableObjDetector == null)
             AddInteractableObjDetector();
         
-        _interactableObjDetector.size = new Vector3(_playerCollider.height, _playerCollider.height, _playerCollider.height);
+        _interactableObjDetector.size = new Vector3(_playerCollider.height / 2, _playerCollider.height, _playerCollider.height);
         _interactableObjDetector.center = new Vector3(_playerCollider.transform.position.x, 
             _playerCollider.transform.position.y + _playerCollider.height * 3/4, 
             _playerCollider.transform.position.z + _playerCollider.height / 2);

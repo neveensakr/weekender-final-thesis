@@ -14,6 +14,7 @@ public class InitialState : BaseState
     public override void UpdateState()
     {
         _timeSinceEnter += Time.deltaTime;
+        UtilityFunctions.ResetConstraintWeight(_timeSinceEnter);
     }
 
     public override void ExitState()

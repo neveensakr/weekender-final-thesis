@@ -7,6 +7,7 @@ public class IntroManager : MonoBehaviour
     [SerializeField] private GameObject _introUI;
     [SerializeField] private PlayableDirector _introSequence;
     [SerializeField] private GameObject _playerCamera;
+    [SerializeField] private Rig _headTrackingRig;
     [SerializeField] private Rig _objectInteractionRig;
     private GameMode _currentGameMode;
     
@@ -14,6 +15,7 @@ public class IntroManager : MonoBehaviour
     {
         _introUI.SetActive(false);
         _playerCamera.SetActive(false);
+        _headTrackingRig.weight = 1;
     }
 
     public void ActivateIntroUI()
@@ -43,6 +45,7 @@ public class IntroManager : MonoBehaviour
     private void EndIntroSequence()
     {
         _introSequence.Stop();
+        _headTrackingRig.weight = 0;
         Debug.Log("[IntroManager] Current Game Mode: " + _currentGameMode);
     }
 }

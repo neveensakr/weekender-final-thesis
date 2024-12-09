@@ -4,7 +4,7 @@ public class DiscoveryState : BaseState
 {
     public DiscoveryState(ObjectInteractionUtilityFunctions utilityFunctions) : base(utilityFunctions) {}
 
-    private float _reachDistanceThreshold = 1.6f;
+    private float _reachDistanceThreshold = 1.5f;
 
     public override ObjectInteractionState GetNextState()
     {
@@ -32,6 +32,6 @@ public class DiscoveryState : BaseState
     public override void OnTriggerStay(Collider other)
     {
         if (other == UtilityFunctions.CurrentObjectCollider)
-            UtilityFunctions.UpdateTargetPosition(other, 0.2f);
+            UtilityFunctions.UpdateTargetPosition(other);
     }
 }

@@ -5,7 +5,7 @@ public class ContactState : BaseState
     public ContactState(ObjectInteractionUtilityFunctions utilityFunctions) : base(utilityFunctions) {}
 
     private float _contactTimeElapsed;
-    private float _maxContactTime = 8f;
+    private float _maxContactTime = 80f;
 
     public override void EnterState()
     {
@@ -15,6 +15,7 @@ public class ContactState : BaseState
     public override void UpdateState()
     {
         _contactTimeElapsed += Time.deltaTime;
+        UtilityFunctions.IncreaseConstraintWeight(1, _contactTimeElapsed);
     }
 
     public override void ExitState()
@@ -34,7 +35,7 @@ public class ContactState : BaseState
     {
         if (other == UtilityFunctions.CurrentObjectCollider)
         {
-            UtilityFunctions.UpdateTargetPosition(other, 0.5f);
+            UtilityFunctions.UpdateTargetPosition(other);
             UtilityFunctions.MoveTargetToPosition();
         }
     }

@@ -10,6 +10,7 @@ public class ReachState : BaseState
     public override void UpdateState()
     {
         _timeSinceEnter += Time.deltaTime;
+        UtilityFunctions.IncreaseConstraintWeight(0.5f, _timeSinceEnter);
     }
 
     public override void ExitState()
@@ -36,7 +37,7 @@ public class ReachState : BaseState
     {
         if (other == UtilityFunctions.CurrentObjectCollider)
         {
-            UtilityFunctions.UpdateTargetPosition(other, 0.3f);
+            UtilityFunctions.UpdateTargetPosition(other);
             UtilityFunctions.MoveTargetToPosition();
         }
     }
