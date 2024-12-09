@@ -19,7 +19,6 @@ public class StateMachineManager : MonoBehaviour
     private Dictionary<ObjectInteractionState, BaseState> _states;
     private ObjectInteractionUtilityFunctions _utilityFunctions;
     private BaseState _currentState;
-    private BoxCollider _interactableObjDetector;
     
     void Start()
     {
@@ -34,10 +33,10 @@ public class StateMachineManager : MonoBehaviour
     
     void Update()
     {
-        _utilityFunctions._leftTargetRotationDirection = _leftTargetRotation;
-        _utilityFunctions._leftTargetContactOffSet = _leftContactOffSet;
-        _utilityFunctions._rightTargetRotationDirection = _rightTargetRotation;
-        _utilityFunctions._rightTargetContactOffSet = _rightContactOffSet;
+        _utilityFunctions.LeftTargetRotationDirection = _leftTargetRotation;
+        _utilityFunctions.LeftTargetContactOffSet = _leftContactOffSet;
+        _utilityFunctions.RightTargetRotationDirection = _rightTargetRotation;
+        _utilityFunctions.RightTargetContactOffSet = _rightContactOffSet;
         
         Debug.Log("Updating " + _currentState);
         _currentState.UpdateState();

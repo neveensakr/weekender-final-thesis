@@ -8,26 +8,24 @@ public class ObjectInteractionUtilityFunctions
 {
     public Collider CurrentObjectCollider { get; set; }
     public IInteractable CurrentInteractable { get; set; }
-    
-    public Vector3 _leftTargetRotationDirection { get; set; }
-    public Vector3 _rightTargetRotationDirection { get; set; }
-    public Vector3 _leftTargetContactOffSet { get; set; }
-    public Vector3 _rightTargetContactOffSet { get; set; }
+    public Vector3 LeftTargetRotationDirection { get; set; }
+    public Vector3 RightTargetRotationDirection { get; set; }
+    public Vector3 LeftTargetContactOffSet { get; set; }
+    public Vector3 RightTargetContactOffSet { get; set; }
     
     private TwoBoneIKConstraint _leftArmIKConstraint;
     private TwoBoneIKConstraint _rightArmIKConstraint;
     private MultiRotationConstraint _leftArmRotationConstraint;
     private MultiRotationConstraint _rightArmRotationConstraint;
     private CapsuleCollider _playerCollider;
+    private float _rotationSpeed = 300f;
+    
     private TwoBoneIKConstraint _currentIKConstraint;
     private MultiRotationConstraint _currentRotationConstraint;
     private Vector3 _currentTargetRotation;
     private Vector3 _currentTargetOffset;
     private Vector3 _currentPointOfContact;
-    private Quaternion _targetRotation;
-    private Vector3 _currentPointOnObject;
     private Vector3 _initialIKPosition;
-    private float _rotationSpeed = 300f;
     private float _initialDistanceFromObj;
 
     public ObjectInteractionUtilityFunctions(TwoBoneIKConstraint leftArmIKConstraint,
@@ -53,15 +51,15 @@ public class ObjectInteractionUtilityFunctions
         {
             _currentIKConstraint = _leftArmIKConstraint;
             _currentRotationConstraint = _leftArmRotationConstraint;
-            _currentTargetRotation = _leftTargetRotationDirection;
-            _currentTargetOffset = _leftTargetContactOffSet;
+            _currentTargetRotation = LeftTargetRotationDirection;
+            _currentTargetOffset = LeftTargetContactOffSet;
         }
         else
         {
             _currentIKConstraint = _rightArmIKConstraint;
             _currentRotationConstraint = _rightArmRotationConstraint;
-            _currentTargetRotation = _rightTargetRotationDirection;
-            _currentTargetOffset = _rightTargetContactOffSet;
+            _currentTargetRotation = RightTargetRotationDirection;
+            _currentTargetOffset = RightTargetContactOffSet;
         }
         _initialIKPosition = _currentIKConstraint.data.target.transform.localPosition;
     }
@@ -73,10 +71,9 @@ public class ObjectInteractionUtilityFunctions
         
         _currentPointOfContact = other.ClosestPoint(_playerCollider.transform.position);
         _currentPointOfContact += _currentTargetOffset;
-        _currentPointOnObject = _currentPointOfContact;
-        _targetRotation = Quaternion.LookRotation(_currentTargetRotation, _currentIKConstraint.data.target.transform.forward);
+        Quaternion targetRotation = Quaternion.LookRotation(_currentTargetRotation, _currentIKConstraint.data.target.transform.forward);
         _currentIKConstraint.data.target.rotation =
-            Quaternion.RotateTowards(_currentIKConstraint.data.target.rotation, _targetRotation, _rotationSpeed * Time.deltaTime);
+            Quaternion.RotateTowards(_currentIKConstraint.data.target.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
     }
 
     public void ResetConstraintPosition()
@@ -105,7 +102,7 @@ public class ObjectInteractionUtilityFunctions
 
     public float GetDistanceToObject()
     {
-        return Vector3.Distance(_currentPointOnObject, _currentIKConstraint.data.root.position);
+        return Vector3.Distance(_currentPointOfContact, _currentIKConstraint.data.root.position);
     }
 
     public void MoveTargetToPosition()
