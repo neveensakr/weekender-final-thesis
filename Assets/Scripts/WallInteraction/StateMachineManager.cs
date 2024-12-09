@@ -30,8 +30,6 @@ public class StateMachineManager : MonoBehaviour
         _currentState = _states[ObjectInteractionState.Initial];
         Debug.Log("Entering " + _currentState);
         _currentState.EnterState();
-        
-        AddInteractableObjDetector();
     }
     
     void Update()
@@ -41,7 +39,6 @@ public class StateMachineManager : MonoBehaviour
         _utilityFunctions._rightTargetRotationDirection = _rightTargetRotation;
         _utilityFunctions._rightTargetContactOffSet = _rightContactOffSet;
         
-        UpdateInteractableObjDetectorPosition();
         Debug.Log("Updating " + _currentState);
         _currentState.UpdateState();
         BaseState nextState = _states[_currentState.GetNextState()];
@@ -67,24 +64,7 @@ public class StateMachineManager : MonoBehaviour
         Debug.Log("Entering " + _currentState);
         _currentState.EnterState();
     }
-
-    private void AddInteractableObjDetector()
-    {
-        _interactableObjDetector = gameObject.AddComponent<BoxCollider>();
-        _interactableObjDetector.isTrigger = true;
-    }
-
-    private void UpdateInteractableObjDetectorPosition()
-    {
-        if (_interactableObjDetector == null)
-            AddInteractableObjDetector();
-        
-        _interactableObjDetector.size = new Vector3(_playerCollider.height / 2, _playerCollider.height, _playerCollider.height);
-        _interactableObjDetector.center = new Vector3(_playerCollider.transform.position.x, 
-            _playerCollider.transform.position.y + _playerCollider.height * 3/4, 
-            _playerCollider.transform.position.z + _playerCollider.height / 2);
-    }
-
+    
     private void OnTriggerEnter(Collider other)
     {
         _currentState.OnTriggerEnter(other);

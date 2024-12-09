@@ -19,7 +19,6 @@ public class ObjectInteractionUtilityFunctions
     private MultiRotationConstraint _leftArmRotationConstraint;
     private MultiRotationConstraint _rightArmRotationConstraint;
     private CapsuleCollider _playerCollider;
-    
     private TwoBoneIKConstraint _currentIKConstraint;
     private MultiRotationConstraint _currentRotationConstraint;
     private Vector3 _currentTargetRotation;
@@ -29,6 +28,7 @@ public class ObjectInteractionUtilityFunctions
     private Vector3 _currentPointOnObject;
     private Vector3 _initialIKPosition;
     private float _rotationSpeed = 300f;
+    private float _initialDistanceFromObj;
 
     public ObjectInteractionUtilityFunctions(TwoBoneIKConstraint leftArmIKConstraint,
         TwoBoneIKConstraint rightArmIKConstraint,
@@ -72,26 +72,17 @@ public class ObjectInteractionUtilityFunctions
             return;
         
         _currentPointOfContact = other.ClosestPoint(_playerCollider.transform.position);
-        _currentPointOfContact.y += _playerCollider.height * 0.5f;
         _currentPointOfContact += _currentTargetOffset;
         _currentPointOnObject = _currentPointOfContact;
         _targetRotation = Quaternion.LookRotation(_currentTargetRotation, _currentIKConstraint.data.target.transform.forward);
+        _currentIKConstraint.data.target.rotation =
+            Quaternion.RotateTowards(_currentIKConstraint.data.target.rotation, _targetRotation, _rotationSpeed * Time.deltaTime);
     }
 
     public void ResetConstraintPosition()
     {
         if (_currentIKConstraint)
             _currentIKConstraint.data.target.localPosition = _initialIKPosition;
-        
-        _leftArmIKConstraint.data.target.rotation =
-            Quaternion.RotateTowards(_leftArmIKConstraint.data.target.rotation, 
-                Quaternion.LookRotation(_leftTargetRotationDirection, _leftArmIKConstraint.data.target.transform.forward),
-                _rotationSpeed * Time.deltaTime);
-        _rightArmIKConstraint.data.target.rotation =
-            Quaternion.RotateTowards(_rightArmIKConstraint.data.target.rotation, 
-                Quaternion.LookRotation(_rightTargetRotationDirection, _rightArmIKConstraint.data.target.transform.forward),
-                _rotationSpeed * Time.deltaTime);
-        
         _currentRotationConstraint = null;
         _currentIKConstraint = null;
         CurrentObjectCollider = null;
@@ -120,7 +111,15 @@ public class ObjectInteractionUtilityFunctions
     public void MoveTargetToPosition()
     {
         _currentIKConstraint.data.target.position = _currentPointOfContact;
-        _currentIKConstraint.data.target.rotation =
-            Quaternion.RotateTowards(_currentIKConstraint.data.target.rotation, _targetRotation, _rotationSpeed * Time.deltaTime);
+    }
+
+    public void SetInitialDistance()
+    {
+        _initialDistanceFromObj = GetDistanceToObject();
+    }
+
+    public bool IsWalkingAway()
+    {
+        return GetDistanceToObject() > _initialDistanceFromObj;
     }
 }

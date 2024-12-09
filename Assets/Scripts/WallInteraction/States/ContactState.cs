@@ -28,6 +28,11 @@ public class ContactState : BaseState
         if (_contactTimeElapsed > _maxContactTime)
             return ObjectInteractionState.Initial;
         
+        if (UtilityFunctions.CurrentObjectCollider && UtilityFunctions.IsWalkingAway())
+        {
+            return ObjectInteractionState.Reach;
+        }
+        
         return ObjectInteractionState.Contact;
     }
     

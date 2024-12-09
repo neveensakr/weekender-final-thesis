@@ -7,6 +7,11 @@ public class ReachState : BaseState
     private float _contactDistanceThreshold = 1.3f;
     private float _timeSinceEnter;
     
+    public override void EnterState()
+    {
+        UtilityFunctions.SetInitialDistance();
+    }
+
     public override void UpdateState()
     {
         _timeSinceEnter += Time.deltaTime;
