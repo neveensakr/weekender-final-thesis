@@ -33,7 +33,7 @@ Shader "Unlit/OutlineShader"
             {
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
-                float3 objectNormal : TEXCOORD1;
+                float3 objectNormal : TEXCOORD5;
                 float4 vertexObjSpace : TEXCOORD2;
             };
 

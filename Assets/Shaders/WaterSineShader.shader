@@ -4,10 +4,13 @@ Shader "Unlit/WaterSineShader"
     {
         _LightColor("Light Color", Color) = (1,1,1,1)
         _DarkColor("Dark Color", Color) = (0,0,0,0)
+        _RefractionColor("Refraction Color", Color) = (0,0,0,0)
+        _Visibility("Visibility", Range(0, 1)) = 0.5
+        _Shininess("Shininess", Range(0, 1)) = 0.5
     }
     SubShader
     {
-        Tags {"RenderType"="Opaque" }
+        Tags { "RenderType"="Transparent" "Queue"="Transparent"}
         LOD 100
 
         Pass
@@ -23,30 +26,31 @@ Shader "Unlit/WaterSineShader"
             struct appdata
             {
                 float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
                 float4 normal : NORMAL;
             };
 
             struct v2f
             {
-                float2 uv : TEXCOORD0;
                 UNITY_FOG_COORDS(1)
                 float4 worldNormal : TEXCOORD1;
                 float4 worldPosition : TEXCOORD2;
                 float4 vertex : SV_POSITION;
-                float4 vertexObjectPos : TEXCOORD3;
+                float3 viewDirection : TEXCOORD4;
+                float accumulatedWater : TEXCOORD6;
+                float waterDepth : TEXCOORD7;
             };
-
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
-            fixed4 _LightColor;
-            fixed4 _DarkColor;
-            float4 _LightPoint;
             
             int _WaveCount = 3;
             float _Amplitudes[3];
             float _WaveLengths[3];
             float2 _WaveDirections[3];
+
+            float4 _LightPoint;
+            fixed4 _LightColor;
+            fixed4 _DarkColor;
+            fixed4 _RefractionColor;
+            float _Visibility;
+            float _Shininess;
 
             float3 addWave(float4 vertex, float amplitude, float2 waveDirection, float waveLength, inout float3 tangent, inout float3 binormal)
             {
@@ -81,6 +85,8 @@ Shader "Unlit/WaterSineShader"
                 {
                   waveValue += addWave(v.vertex, _Amplitudes[i], _WaveDirections[i], _WaveLengths[i], tangent, binormal);
                 }
+                o.accumulatedWater = length(v.vertex - waveValue);
+                o.waterDepth = v.vertex.y - waveValue.y;
                 v.vertex.xyz = waveValue;
                 
                 v.normal = float4(normalize(cross(binormal, tangent)), 1);
@@ -88,8 +94,7 @@ Shader "Unlit/WaterSineShader"
                 o.worldPosition = mul(unity_ObjectToWorld, v.vertex);
                 
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                o.vertexObjectPos = v.vertex;
+                o.viewDirection = normalize(UnityWorldSpaceViewDir(o.worldPosition));
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
@@ -99,8 +104,20 @@ Shader "Unlit/WaterSineShader"
                 fixed3 lightDifference = i.worldPosition - _LightPoint;
                 fixed3 lightDir = normalize(lightDifference);
                 fixed intensity = -1 * dot(lightDir, i.worldNormal);
-                fixed4 col = lerp(_DarkColor, _LightColor, i.vertexObjectPos.y);
-                return col * intensity;
+                // Angle between the view direction and the world normal
+                float a = acos(dot(i.viewDirection, i.worldNormal) / (length(i.viewDirection) * length(i.worldNormal)));
+                // Frensel based on the Schlick Approximation
+                float r0 = 0.02040466482;
+                float fresnel = r0 + (1 - r0) * pow(1 - cos(a), 5);
+                // Specular Calculation based on https://www.gamedev.net/articles/programming/graphics/rendering-water-as-a-post-process-effect-r2642/
+                half3 eyeDir = (2 * dot(i.viewDirection, i.worldNormal) * i.worldNormal - i.viewDirection);
+                half sepcularDot = saturate(dot(eyeDir.xyz, -lightDir) * 0.5 + 0.5);
+                float specular = (1.0 - fresnel) * saturate(-lightDir.y) * ((pow(sepcularDot, 512.0)) * (_Shininess * 1.8 + 0.2));
+                specular += specular * 25 * saturate(_Shininess - 0.05);
+                // Setting the color based on the Visibility and Saturation
+                fixed4 surfaceColor = lerp(_RefractionColor, _LightColor, saturate(i.accumulatedWater / _Visibility));
+                fixed3 col = lerp(surfaceColor, _DarkColor, saturate(i.waterDepth / fixed3(4.5, 75, 300)));
+                return fixed4(col, surfaceColor.a) * intensity + specular;
             }
             ENDCG
         }
