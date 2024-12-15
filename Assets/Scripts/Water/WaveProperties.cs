@@ -22,19 +22,19 @@ public class WaveProperties : MonoBehaviour
     {
         float[] amplitudes = new float[waves.Length];
         float[] wavelengths = new float[waves.Length];
-        Vector4[] wavedirections = new Vector4[waves.Length];
+        Vector4[] waveDirections = new Vector4[waves.Length];
         
         for (int i = 0; i < waves.Length; i++)
         {
             amplitudes[i] = waves[i].Amplitude;
             wavelengths[i] = waves[i].WaveLength;
-            wavedirections[i] = new Vector4(waves[i].WaveDirection.x, waves[i].WaveDirection.y, 0, 0);
+            waveDirections[i] = new Vector4(waves[i].WaveDirection.x, waves[i].WaveDirection.y, 0, 0);
         }
         
         GetComponent<Renderer>().material.SetFloat("_WaveCount", waves.Length);
         GetComponent<Renderer>().material.SetFloatArray("_Amplitudes", amplitudes);
         GetComponent<Renderer>().material.SetFloatArray("_WaveLengths", wavelengths);
-        GetComponent<Renderer>().material.SetVectorArray("_WaveDirections", wavedirections);
+        GetComponent<Renderer>().material.SetVectorArray("_WaveDirections", waveDirections);
         GetComponent<Renderer>().material.SetVector("_LightPoint", Light.position);
         
     }

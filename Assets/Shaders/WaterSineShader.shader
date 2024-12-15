@@ -106,7 +106,7 @@ Shader "Unlit/WaterSineShader"
                 fixed intensity = -1 * dot(lightDir, i.worldNormal);
                 // Angle between the view direction and the world normal
                 float a = acos(dot(i.viewDirection, i.worldNormal) / (length(i.viewDirection) * length(i.worldNormal)));
-                // Frensel based on the Schlick Approximation
+                // Fresnel based on the Schlick Approximation
                 float r0 = 0.02040466482;
                 float fresnel = r0 + (1 - r0) * pow(1 - cos(a), 5);
                 // Specular Calculation based on https://www.gamedev.net/articles/programming/graphics/rendering-water-as-a-post-process-effect-r2642/
