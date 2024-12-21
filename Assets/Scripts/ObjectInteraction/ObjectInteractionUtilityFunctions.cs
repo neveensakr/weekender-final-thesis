@@ -46,7 +46,7 @@ public class ObjectInteractionUtilityFunctions
         Vector3 pointOfContact = other.ClosestPoint(_playerCollider.transform.position);
         Vector3 playerLeftShoulderPos = _leftArmIKConstraint.data.root.position;
         Vector3 playerRightShoulderPos = _rightArmIKConstraint.data.root.position;
-        bool isLeftCloser = (playerLeftShoulderPos - pointOfContact).magnitude < (playerRightShoulderPos - pointOfContact).magnitude;
+        bool isLeftCloser = IsLeftCloser(pointOfContact, playerLeftShoulderPos, playerRightShoulderPos);
         if (isLeftCloser)
         {
             _currentIKConstraint = _leftArmIKConstraint;
@@ -118,5 +118,10 @@ public class ObjectInteractionUtilityFunctions
     public bool IsWalkingAway()
     {
         return GetDistanceToObject() > _initialDistanceFromObj;
+    }
+
+    public bool IsLeftCloser(Vector3 pointOfContact, Vector3 left, Vector3 right)
+    {
+        return (left - pointOfContact).magnitude < (right - pointOfContact).magnitude;
     }
 }
