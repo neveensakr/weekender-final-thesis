@@ -1,9 +1,10 @@
 {
-    "name": "Scripts",
+    "name": "ObjectInteractionScripts",
     "rootNamespace": "",
     "references": [
+        "GUID:a45e6a3e0cf216743ae8d23a1af9380e",
         "GUID:7f7d1af65c2641843945d409d28f2e20",
-        "GUID:a45e6a3e0cf216743ae8d23a1af9380e"
+        "GUID:1cfa1d32a7cb3f248818135a051b2036"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

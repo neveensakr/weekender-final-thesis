@@ -1,8 +1,7 @@
 {
-    "name": "Scripts",
+    "name": "ChessGameScripts",
     "rootNamespace": "",
     "references": [
-        "GUID:7f7d1af65c2641843945d409d28f2e20",
         "GUID:a45e6a3e0cf216743ae8d23a1af9380e"
     ],
     "includePlatforms": [],

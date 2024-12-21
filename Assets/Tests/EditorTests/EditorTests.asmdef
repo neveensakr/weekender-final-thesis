@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Scripts",
-        "Unity.Animation.Rigging"
+        "Unity.Animation.Rigging",
+        "ObjectInteractionScripts"
     ],
     "includePlatforms": [
         "Editor"
