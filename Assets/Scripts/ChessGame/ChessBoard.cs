@@ -27,7 +27,7 @@ public class ChessBoard : MonoBehaviour
                 _gridBlocks[x,y] = Instantiate(Resources.Load<GameObject>("Chess/GridBlock"),
                     transform, false).GetComponent<GridBlock>();
                 ChessPieceColor color = ChessGameHelperFunctions.GetGridBlockColor(new Vector2(x, y));
-                _gridBlocks[x,y].Setup(new Vector3(x, -0.5f, y), color);
+                _gridBlocks[x,y].Setup(new Vector3(x, -0.1f, y), color);
             }
         }
         
@@ -42,6 +42,8 @@ public class ChessBoard : MonoBehaviour
             _pieces[i] = Instantiate(Resources.Load<GameObject>("Chess/ChessPiece_" + pieceOrder[i]), 
                 transform, false).GetComponent<ChessPiece>();
             _pieces[i].Setup(new Vector3(i, 0.5f, 0f), ChessPieceColor.White);
+            Vector2 chessGridBlockPos = ChessGameHelperFunctions.GetPositionByIndex(i, 8, 8);
+            _gridBlocks[(int) chessGridBlockPos.x, (int) chessGridBlockPos.y].CurrentChessPiece = _pieces[i];
         }
         
         // White Pawns
@@ -50,6 +52,8 @@ public class ChessBoard : MonoBehaviour
             _pieces[i] = Instantiate(Resources.Load<GameObject>("Chess/ChessPiece_Pawn"), 
                 transform, false).GetComponent<ChessPiece>();
             _pieces[i].Setup(new Vector3((i-8), 0.5f, 1f), ChessPieceColor.White);
+            Vector2 chessGridBlockPos = ChessGameHelperFunctions.GetPositionByIndex(i, 8, 8);
+            _gridBlocks[(int) chessGridBlockPos.x, (int) chessGridBlockPos.y].CurrentChessPiece = _pieces[i];
         }
         
         // Black Row
@@ -58,6 +62,8 @@ public class ChessBoard : MonoBehaviour
             _pieces[i] = Instantiate(Resources.Load<GameObject>("Chess/ChessPiece_" + pieceOrder[i-16]), 
                 transform, false).GetComponent<ChessPiece>();
             _pieces[i].Setup(new Vector3((i-16), 0.5f, 7f), ChessPieceColor.Black);
+            Vector2 chessGridBlockPos = ChessGameHelperFunctions.GetPositionByIndex(i, 8, 8);
+            _gridBlocks[(int) chessGridBlockPos.x, (int) chessGridBlockPos.y].CurrentChessPiece = _pieces[i];
         }
         
         // Black Pawns
@@ -66,6 +72,13 @@ public class ChessBoard : MonoBehaviour
             _pieces[i] = Instantiate(Resources.Load<GameObject>("Chess/ChessPiece_Pawn"), 
                 transform, false).GetComponent<ChessPiece>();
             _pieces[i].Setup(new Vector3((i-24), 0.5f, 6f), ChessPieceColor.Black);
+            Vector2 chessGridBlockPos = ChessGameHelperFunctions.GetPositionByIndex(i, 8, 8);
+            _gridBlocks[(int) chessGridBlockPos.x, (int) chessGridBlockPos.y].CurrentChessPiece = _pieces[i];
         }
+    }
+
+    public GridBlock GetBlockAtPos(Vector2 position)
+    {
+        return _gridBlocks[(int) position.x, (int) position.y];
     }
 }
