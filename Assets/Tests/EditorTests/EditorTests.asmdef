@@ -6,7 +6,9 @@
         "UnityEditor.TestRunner",
         "Scripts",
         "Unity.Animation.Rigging",
-        "ObjectInteractionScripts"
+        "ObjectInteractionScripts",
+        "ChessGameScripts",
+        "UtilityScripts"
     ],
     "includePlatforms": [
         "Editor"

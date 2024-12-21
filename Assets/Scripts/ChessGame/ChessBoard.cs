@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ChessBoard : MonoBehaviour
 {
+    private GridBlock[,] _gridBlocks = new GridBlock[8,8];
     private ChessPiece[] _pieces = new ChessPiece[32];
 
     private Dictionary<int, ChessPieceName> pieceOrder = new() {
@@ -19,6 +20,17 @@ public class ChessBoard : MonoBehaviour
 
     public void Initialize()
     {
+        for (int x = 0; x < 8; x++)
+        {
+            for (int y = 0; y < 8; y++)
+            {
+                _gridBlocks[x,y] = Instantiate(Resources.Load<GameObject>("Chess/GridBlock"),
+                    transform, false).GetComponent<GridBlock>();
+                ChessPieceColor color = ChessGameHelperFunctions.GetGridBlockColor(new Vector2(x, y));
+                _gridBlocks[x,y].Setup(new Vector3(x, -0.5f, y), color);
+            }
+        }
+        
         SpawnPieces();
     }
 
@@ -28,32 +40,32 @@ public class ChessBoard : MonoBehaviour
         for (int i = 0; i < 8; i++)
         {
             _pieces[i] = Instantiate(Resources.Load<GameObject>("Chess/ChessPiece_" + pieceOrder[i]), 
-                transform, true).GetComponent<ChessPiece>();
-            _pieces[i].Setup(new Vector3(i * 1.25f, 0.5f, 0f), ChessPieceColor.White);
+                transform, false).GetComponent<ChessPiece>();
+            _pieces[i].Setup(new Vector3(i, 0.5f, 0f), ChessPieceColor.White);
         }
         
         // White Pawns
         for (int i = 8; i < 16; i++)
         {
             _pieces[i] = Instantiate(Resources.Load<GameObject>("Chess/ChessPiece_Pawn"), 
-                transform, true).GetComponent<ChessPiece>();
-            _pieces[i].Setup(new Vector3((i-8) * 1.25f, 0.5f, 1.35f), ChessPieceColor.White);
+                transform, false).GetComponent<ChessPiece>();
+            _pieces[i].Setup(new Vector3((i-8), 0.5f, 1f), ChessPieceColor.White);
         }
         
         // Black Row
         for (int i = 16; i < 24; i++)
         {
             _pieces[i] = Instantiate(Resources.Load<GameObject>("Chess/ChessPiece_" + pieceOrder[i-16]), 
-                transform, true).GetComponent<ChessPiece>();
-            _pieces[i].Setup(new Vector3((i-16) * 1.25f, 0.5f, 8.75f), ChessPieceColor.Black);
+                transform, false).GetComponent<ChessPiece>();
+            _pieces[i].Setup(new Vector3((i-16), 0.5f, 7f), ChessPieceColor.Black);
         }
         
         // Black Pawns
         for (int i = 24; i < 32; i++)
         {
             _pieces[i] = Instantiate(Resources.Load<GameObject>("Chess/ChessPiece_Pawn"), 
-                transform, true).GetComponent<ChessPiece>();
-            _pieces[i].Setup(new Vector3((i-24) * 1.25f, 0.5f, 7.6f), ChessPieceColor.Black);
+                transform, false).GetComponent<ChessPiece>();
+            _pieces[i].Setup(new Vector3((i-24), 0.5f, 6f), ChessPieceColor.Black);
         }
     }
 }
