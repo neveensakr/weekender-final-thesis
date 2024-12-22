@@ -18,9 +18,4 @@ public class ChessQueen : ChessPiece
         
         return movements;
     }
-
-    public override void MovePiece()
-    {
-        throw new System.NotImplementedException();
-    }
 }

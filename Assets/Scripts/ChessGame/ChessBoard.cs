@@ -96,12 +96,27 @@ public class ChessBoard : MonoBehaviour
         }
     }
 
-    private void ResetHighlightedBlocks()
+    public void ResetHighlightedBlocks()
     {
         foreach (Vector2 position in HighlightedBlocks)
         {
             GetBlockAtPos(position).AdjustEffect(GridBlockEffect.Normal);
         }
         HighlightedBlocks.Clear();
+    }
+
+    public void CleanPotentialPositions(List<Vector2> potentialPositions, ChessPiece piece)
+    {
+        // The player can't move on positions occupied by their pieces
+        for (int i = potentialPositions.Count - 1; i >= 0; i--)
+        {
+            ChessPiece pieceAtPos = GetBlockAtPos(potentialPositions[i]).CurrentChessPiece;
+            if (pieceAtPos && pieceAtPos.Color == piece.Color)
+            {
+                potentialPositions.RemoveAt(i);
+            }
+        }
+        
+        HighlightBlocks(potentialPositions);
     }
 }

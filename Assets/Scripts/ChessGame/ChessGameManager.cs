@@ -29,6 +29,8 @@ public class ChessGameManager : MonoBehaviour
             CurrentPlayerPosition = ChessPlayerInput.MovePlayer(CurrentPlayerPosition, ChessMovementDirection.Right);
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
             SetActivePiece();
+        if (Input.GetKeyDown(KeyCode.Space))
+            MoveActivePiece();
 
         GridBlock newBlock = board.GetBlockAtPos(CurrentPlayerPosition);
         if (CurrentBlock != newBlock)
@@ -60,7 +62,20 @@ public class ChessGameManager : MonoBehaviour
                 board.GetBlockAtPos(ActivePiece.CurrentPosition).AdjustEffect(GridBlockEffect.Normal);
             ActivePiece = newPiece;
             CurrentBlock.AdjustEffect(GridBlockEffect.Selected);
-            board.HighlightBlocks(ActivePiece.GetPotentialPositions());
+            board.CleanPotentialPositions(ActivePiece.GetPotentialPositions(), ActivePiece);
+        }
+    }
+
+    private void MoveActivePiece()
+    {
+        if (ActivePiece && board.HighlightedBlocks.Contains(CurrentPlayerPosition))
+        {
+            GridBlock oldBlock = board.GetBlockAtPos(ActivePiece.CurrentPosition);
+            oldBlock.CurrentChessPiece = null;
+            oldBlock.AdjustEffect(GridBlockEffect.Normal);
+            ActivePiece.MovePiece(CurrentBlock);
+            CurrentBlock.CurrentChessPiece = ActivePiece;
+            board.ResetHighlightedBlocks();
         }
     }
 

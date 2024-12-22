@@ -16,7 +16,12 @@ public abstract class ChessPiece : MonoBehaviour
     }
 
     public abstract List<Vector2> GetPotentialPositions();
-    public abstract void MovePiece();
+
+    public void MovePiece(GridBlock targetBlock)
+    {
+        CurrentPosition = targetBlock.Position;
+        transform.position = new Vector3(CurrentPosition.x, transform.position.y, CurrentPosition.y);
+    }
 
     public void KillPiece()
     {

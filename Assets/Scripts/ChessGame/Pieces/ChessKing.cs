@@ -20,9 +20,4 @@ public class ChessKing : ChessPiece
 
         return movements;
     }
-
-    public override void MovePiece()
-    {
-        throw new System.NotImplementedException();
-    }
 }
