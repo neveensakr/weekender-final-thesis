@@ -7,6 +7,7 @@ using UnityEngine;
 public class GridBlock : MonoBehaviour
 {
     public ChessPiece CurrentChessPiece;
+    public Vector2 Position;
     private Material _originalMaterial;
     [SerializeField] private Material _hoverMaterial;
     [SerializeField] private Material _selectedMaterial;
@@ -16,6 +17,7 @@ public class GridBlock : MonoBehaviour
     public void Setup(int index, Vector3 initialPosition, ChessPieceColor color)
     {
         transform.position = initialPosition;
+        Position = new Vector2(initialPosition.x, initialPosition.z);
         _originalMaterial = Resources.Load<Material>("Chess/ChessPiece_" + color + "_M");
         GetComponentInChildren<Renderer>().material = _originalMaterial;
         _idText.text = initialPosition.x + ", " + initialPosition.z + ": i = " + index;

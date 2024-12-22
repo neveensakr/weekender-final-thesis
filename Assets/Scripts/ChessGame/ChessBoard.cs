@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ChessBoard : MonoBehaviour
 {
+    public List<Vector2> HighlightedBlocks = new List<Vector2>();
+    
     private GridBlock[] _gridBlocks = new GridBlock[64];
     private ChessPiece[] _pieces = new ChessPiece[32];
 
@@ -82,5 +84,24 @@ public class ChessBoard : MonoBehaviour
     {
         int index = ChessGameHelperFunctions.GetIndexByPosition((int) position.x, (int) position.y, 8);
         return _gridBlocks[index];
+    }
+
+    public void HighlightBlocks(List<Vector2> positions)
+    {
+        ResetHighlightedBlocks();
+        HighlightedBlocks = positions;
+        foreach (Vector2 position in positions)
+        {
+            GetBlockAtPos(position).AdjustEffect(GridBlockEffect.PotentialPosition);
+        }
+    }
+
+    private void ResetHighlightedBlocks()
+    {
+        foreach (Vector2 position in HighlightedBlocks)
+        {
+            GetBlockAtPos(position).AdjustEffect(GridBlockEffect.Normal);
+        }
+        HighlightedBlocks.Clear();
     }
 }

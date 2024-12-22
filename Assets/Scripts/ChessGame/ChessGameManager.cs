@@ -60,14 +60,17 @@ public class ChessGameManager : MonoBehaviour
                 board.GetBlockAtPos(ActivePiece.CurrentPosition).AdjustEffect(GridBlockEffect.Normal);
             ActivePiece = newPiece;
             CurrentBlock.AdjustEffect(GridBlockEffect.Selected);
+            board.HighlightBlocks(ActivePiece.GetPotentialPositions());
         }
     }
 
     private void SetHoverEffect(GridBlock currentBlock, GridBlock nextBlock, ChessPiece activePiece)
     {
-        if (currentBlock.CurrentChessPiece == activePiece && activePiece) // we are on a selected piece, so don't change the color back to Normal
+        if (currentBlock.CurrentChessPiece == activePiece && activePiece) // we were on a selected piece, don't change the color back to Normal
             currentBlock.AdjustEffect(GridBlockEffect.Selected);
-        else  // we are not on a selected piece, so change the color back to normal
+        else if (board.HighlightedBlocks.Contains(currentBlock.Position)) // we were on a potential position
+            currentBlock.AdjustEffect(GridBlockEffect.PotentialPosition);
+        else // we were not on a selected or potential block, so change the color back to normal
             currentBlock.AdjustEffect(GridBlockEffect.Normal);
         
         nextBlock.AdjustEffect(GridBlockEffect.Hover);

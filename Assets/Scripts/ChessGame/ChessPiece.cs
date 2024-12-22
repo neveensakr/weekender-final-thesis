@@ -15,6 +15,7 @@ public abstract class ChessPiece : MonoBehaviour
         GetComponentInChildren<Renderer>().material = Resources.Load<Material>("Chess/ChessPiece_" + color + "_M");
     }
 
+    public abstract List<Vector2> GetPotentialPositions();
     public abstract void MovePiece();
 
     public void KillPiece()
