@@ -31,22 +31,12 @@ public class ChessGameHelperFunctionsTests
     }
     
     [Test]
-    public void GetPositionByIndex_InBounds()
+    public void GetIndexByPosition_InBounds()
     {
-        int index = 17;
-        int rowCount = 8;
+        int x = 5;
+        int y = 2;
         int columnCount = 8;
             
-        Assert.AreEqual(new Vector2(1, 2), ChessGameHelperFunctions.GetPositionByIndex(index, rowCount, columnCount));
-    }
-    
-    [Test]
-    public void GetPositionByIndex_OutOfBounds()
-    {
-        int index = 100;
-        int rowCount = 8;
-        int columnCount = 8;
-            
-        Assert.AreEqual(new Vector2(0, 0), ChessGameHelperFunctions.GetPositionByIndex(index, rowCount, columnCount));
+        Assert.AreEqual(21, ChessGameHelperFunctions.GetIndexByPosition(x, y, columnCount));
     }
 }

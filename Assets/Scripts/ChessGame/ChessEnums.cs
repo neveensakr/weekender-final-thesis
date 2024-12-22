@@ -20,3 +20,10 @@ public enum ChessPieceColor {
     White,
     Black
 }
+
+public enum GridBlockEffect {
+    Normal,
+    Hover,
+    Selected,
+    PotentialPosition
+}

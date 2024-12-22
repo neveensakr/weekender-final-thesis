@@ -15,13 +15,8 @@ public static class ChessGameHelperFunctions
         return ChessPieceColor.White;
     }
 
-    public static Vector2 GetPositionByIndex(int index, int rowCount, int columnCount)
+    public static int GetIndexByPosition(int x, int y, int columnCount)
     {
-        if (index >= rowCount * columnCount)
-            return new Vector2(0, 0);
-        
-        int x = index % rowCount;
-        int y = index / rowCount;
-        return new Vector2(x, y);
+        return (y * columnCount) + x;
     }
 }
