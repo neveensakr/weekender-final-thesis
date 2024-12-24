@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ChessBoard : MonoBehaviour
 {
+    public UnityEvent onKingKill = new UnityEvent();
     public List<GridBlock> HighlightedBlocks = new List<GridBlock>();
     
     private GridBlock[] _gridBlocks = new GridBlock[64];
@@ -46,6 +48,7 @@ public class ChessBoard : MonoBehaviour
             _pieces[i] = Instantiate(Resources.Load<GameObject>("Chess/ChessPiece_" + pieceOrder[i]), 
                 transform, false).GetComponent<ChessPiece>();
             _pieces[i].Setup(new Vector3(i, 0.5f, 0f), ChessPieceColor.White);
+            _pieces[i].onKill.AddListener(pieceKill);
             _gridBlocks[index].CurrentChessPiece = _pieces[i];
         }
         
@@ -57,6 +60,7 @@ public class ChessBoard : MonoBehaviour
                 transform, false).GetComponent<ChessPiece>();
             _pieces[i].Setup(new Vector3((i-8), 0.5f, 1f), ChessPieceColor.White);
             _gridBlocks[index].CurrentChessPiece = _pieces[i];
+            _pieces[i].onKill.AddListener(pieceKill);
         }
         
         // Black Row
@@ -67,6 +71,7 @@ public class ChessBoard : MonoBehaviour
                 transform, false).GetComponent<ChessPiece>();
             _pieces[i].Setup(new Vector3((i-16), 0.5f, 7f), ChessPieceColor.Black);
             _gridBlocks[index].CurrentChessPiece = _pieces[i];
+            _pieces[i].onKill.AddListener(pieceKill);
         }
         
         // Black Pawns
@@ -77,6 +82,7 @@ public class ChessBoard : MonoBehaviour
                 transform, false).GetComponent<ChessPiece>();
             _pieces[i].Setup(new Vector3((i-24), 0.5f, 6f), ChessPieceColor.Black);
             _gridBlocks[index].CurrentChessPiece = _pieces[i];
+            _pieces[i].onKill.AddListener(pieceKill);
         }
     }
 
@@ -103,5 +109,13 @@ public class ChessBoard : MonoBehaviour
             block.AdjustEffect(GridBlockEffect.Normal);
         }
         HighlightedBlocks.Clear();
+    }
+
+    public void pieceKill(ChessPiece piece)
+    {
+        if (piece is ChessKing)
+        {
+            onKingKill.Invoke();
+        }
     }
 }

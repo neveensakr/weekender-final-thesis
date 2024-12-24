@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class ChessPiece : MonoBehaviour
 {
+    public UnityEvent<ChessPiece> onKill = new UnityEvent<ChessPiece>();
     public Vector2 CurrentPosition;
     public ChessPieceColor Color;
     public bool HasMoved = false;
@@ -27,6 +29,7 @@ public abstract class ChessPiece : MonoBehaviour
 
     public void KillPiece()
     {
+        onKill.Invoke(this);
         Destroy(gameObject);
     }
 }

@@ -23,12 +23,11 @@ public class ChessPlayer
     private void InitializePlayerInput()
     {
         _inverseMovement = (Color == ChessPieceColor.Black);
-        CurrentPosition = new Vector2(3, 1);
         CurrentBlock = _board.GetBlockAtPos(CurrentPosition);
         CurrentBlock.AdjustEffect(GridBlockEffect.Hover);
     }
     
-    public void Move()
+    public bool Move()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
             CurrentPosition = ChessPlayerInput.MovePlayer(CurrentPosition, ChessMovementDirection.Forward, _inverseMovement);
@@ -42,7 +41,9 @@ public class ChessPlayer
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
             SetActivePiece();
         if (Input.GetKeyDown(KeyCode.Space))
-            MoveActivePiece();
+            return MoveActivePiece();
+        
+        return false;
     }
     
     private void SetActivePiece()
@@ -58,7 +59,7 @@ public class ChessPlayer
         }
     }
     
-    private void MoveActivePiece()
+    private bool MoveActivePiece()
     {
         if (ActivePiece && _board.HighlightedBlocks.Contains(_board.GetBlockAtPos(CurrentPosition)))
         {
@@ -71,6 +72,9 @@ public class ChessPlayer
             ActivePiece.MovePiece(CurrentBlock);
             CurrentBlock.CurrentChessPiece = ActivePiece;
             _board.ResetHighlightedBlocks();
+            return true;
         }
+
+        return false;
     }
 }

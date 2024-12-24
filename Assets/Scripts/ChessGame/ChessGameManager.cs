@@ -5,24 +5,33 @@ using UnityEngine;
 
 public class ChessGameManager : MonoBehaviour
 {
-    public ChessPlayer player;
+    public ChessPlayer player_1;
+    public ChessPlayer player_2;
     private ChessBoard board;
+    private ChessPlayer _playerCurrentTurn;
+    private bool _gameEnded;
     
     void Start()
     {
         SpawnBoard();
-        player = new ChessPlayer(board, ChessPieceColor.White, new Vector2(3, 1));
+        player_1 = new ChessPlayer(board, ChessPieceColor.White, new Vector2(3, 1));
+        player_2 = new ChessPlayer(board, ChessPieceColor.Black, new Vector2(3, 6));
+        _playerCurrentTurn = player_1;
     }
 
     private void Update()
     {
-        player.Move();
-        
-        GridBlock newBlock = board.GetBlockAtPos(player.CurrentPosition);
-        if (player.CurrentBlock != newBlock)
+        if (!_gameEnded)
         {
-            SetHoverEffect(player.CurrentBlock, newBlock, player.ActivePiece);
-            player.CurrentBlock = newBlock;
+            bool pieceMoved = _playerCurrentTurn.Move();
+            if (pieceMoved) _playerCurrentTurn = (_playerCurrentTurn == player_1) ? player_2 : player_1;
+        
+            GridBlock newBlock = board.GetBlockAtPos(_playerCurrentTurn.CurrentPosition);
+            if (_playerCurrentTurn.CurrentBlock != newBlock)
+            {
+                SetHoverEffect(_playerCurrentTurn.CurrentBlock, newBlock, _playerCurrentTurn.ActivePiece);
+                _playerCurrentTurn.CurrentBlock = newBlock;
+            }
         }
     }
 
@@ -30,6 +39,7 @@ public class ChessGameManager : MonoBehaviour
     {
         board = Instantiate(Resources.Load<GameObject>("Chess/ChessBoard")).GetComponent<ChessBoard>();
         board.Initialize();
+        board.onKingKill.AddListener(EndGame);
     }
 
     private void SetHoverEffect(GridBlock currentBlock, GridBlock nextBlock, ChessPiece activePiece)
@@ -47,5 +57,6 @@ public class ChessGameManager : MonoBehaviour
     private void EndGame()
     {
         Debug.Log("Game Ended");
+        _gameEnded = true;
     }
 }
