@@ -75,6 +75,12 @@ public class ChessGameManager : MonoBehaviour
             GridBlock oldBlock = board.GetBlockAtPos(ActivePiece.CurrentPosition);
             oldBlock.CurrentChessPiece = null;
             oldBlock.AdjustEffect(GridBlockEffect.Normal);
+            if (CurrentBlock.CurrentChessPiece)
+            {
+                if (CurrentBlock.CurrentChessPiece is ChessKing)
+                    EndGame();
+                CurrentBlock.CurrentChessPiece.KillPiece();
+            }
             ActivePiece.MovePiece(CurrentBlock);
             CurrentBlock.CurrentChessPiece = ActivePiece;
             board.ResetHighlightedBlocks();
@@ -91,5 +97,10 @@ public class ChessGameManager : MonoBehaviour
             currentBlock.AdjustEffect(GridBlockEffect.Normal);
         
         nextBlock.AdjustEffect(GridBlockEffect.Hover);
+    }
+
+    private void EndGame()
+    {
+        Debug.Log("Game Ended");
     }
 }
