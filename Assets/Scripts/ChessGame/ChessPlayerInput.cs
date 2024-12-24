@@ -9,23 +9,24 @@ public class ChessPlayerInput
     public static Vector2 LeftMovement = new Vector3(-1, 0);
     public static Vector2 RightMovement = new Vector3(1, 0);
 
-    public static Vector2 MovePlayer(Vector2 initialPosition, ChessMovementDirection direction)
+    public static Vector2 MovePlayer(Vector2 initialPosition, ChessMovementDirection direction, bool inverse)
     {
         Vector3 finalPosition = initialPosition;
+        int inverseMultiplier = inverse ? -1 : 1;
         
         switch (direction)
         {
             case ChessMovementDirection.Forward:
-                finalPosition = initialPosition + ForwardMovement;
+                finalPosition = initialPosition + (ForwardMovement * inverseMultiplier);
                 break;
             case ChessMovementDirection.Backward:
-                finalPosition = initialPosition + BackwardMovement;
+                finalPosition = initialPosition + (BackwardMovement * inverseMultiplier);
                 break;
             case ChessMovementDirection.Left:
-                finalPosition = initialPosition + LeftMovement;
+                finalPosition = initialPosition + (LeftMovement * inverseMultiplier);
                 break;
             case ChessMovementDirection.Right:
-                finalPosition = initialPosition + RightMovement;
+                finalPosition = initialPosition + (RightMovement * inverseMultiplier);
                 break;
         }
 

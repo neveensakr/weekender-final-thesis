@@ -10,23 +10,25 @@ public class ChessGameManager : MonoBehaviour
     public ChessPiece ActivePiece;
     private ChessBoard board;
     private ChessPieceColor _playerColor = ChessPieceColor.White;
+    private bool _inverseMovement = false;
     
     void Start()
     {
         SpawnBoard();
         InitializePlayerInput();
+        _inverseMovement = (_playerColor == ChessPieceColor.Black);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
-            CurrentPlayerPosition = ChessPlayerInput.MovePlayer(CurrentPlayerPosition, ChessMovementDirection.Forward);
+            CurrentPlayerPosition = ChessPlayerInput.MovePlayer(CurrentPlayerPosition, ChessMovementDirection.Forward, _inverseMovement);
         if (Input.GetKeyDown(KeyCode.DownArrow))
-            CurrentPlayerPosition = ChessPlayerInput.MovePlayer(CurrentPlayerPosition, ChessMovementDirection.Backward);
+            CurrentPlayerPosition = ChessPlayerInput.MovePlayer(CurrentPlayerPosition, ChessMovementDirection.Backward, _inverseMovement);
         if (Input.GetKeyDown(KeyCode.LeftArrow))
-            CurrentPlayerPosition = ChessPlayerInput.MovePlayer(CurrentPlayerPosition, ChessMovementDirection.Left);
+            CurrentPlayerPosition = ChessPlayerInput.MovePlayer(CurrentPlayerPosition, ChessMovementDirection.Left, _inverseMovement);
         if (Input.GetKeyDown(KeyCode.RightArrow))
-            CurrentPlayerPosition = ChessPlayerInput.MovePlayer(CurrentPlayerPosition, ChessMovementDirection.Right);
+            CurrentPlayerPosition = ChessPlayerInput.MovePlayer(CurrentPlayerPosition, ChessMovementDirection.Right, _inverseMovement);
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
             SetActivePiece();
         if (Input.GetKeyDown(KeyCode.Space))
