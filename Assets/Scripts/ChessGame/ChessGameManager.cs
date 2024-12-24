@@ -14,8 +14,8 @@ public class ChessGameManager : MonoBehaviour
     void Start()
     {
         SpawnBoard();
-        player_1 = new ChessPlayer(board, ChessPieceColor.White, new Vector2(3, 1));
-        player_2 = new ChessPlayer(board, ChessPieceColor.Black, new Vector2(3, 6));
+        player_1 = new ChessPlayer(board, ChessPieceColor.White, new Vector2(3, 1), false);
+        player_2 = new ChessPlayer(board, ChessPieceColor.Black, new Vector2(3, 6), true);
         _playerCurrentTurn = player_1;
     }
 

@@ -10,13 +10,15 @@ public class ChessPlayer
     public ChessPieceColor Color;
 
     private ChessBoard _board;
-    private bool _inverseMovement = false;
+    private bool _inverseMovement;
+    private bool _isAI;
 
-    public ChessPlayer(ChessBoard board, ChessPieceColor color, Vector2 currentPosition)
+    public ChessPlayer(ChessBoard board, ChessPieceColor color, Vector2 currentPosition, bool isAI)
     {
         _board = board;
         Color = color;
         CurrentPosition = currentPosition;
+        _isAI = isAI;
         InitializePlayerInput();
     }
     
@@ -29,6 +31,20 @@ public class ChessPlayer
     
     public bool Move()
     {
+        if (_isAI)
+        {
+            Debug.Log("Picking Possible Block...");
+            (GridBlock, GridBlock) targetBlock = PickPossibleBlock();
+            Debug.Log("Picked Block at: " + targetBlock.Item1.Position);
+            CurrentPosition = targetBlock.Item1.Position;
+            CurrentBlock = targetBlock.Item1;
+            SetActivePiece();
+            Debug.Log("Moving Block to: " + targetBlock.Item2.Position);
+            CurrentPosition = targetBlock.Item2.Position;
+            CurrentBlock = targetBlock.Item2;
+            return MoveActivePiece();
+        }
+        
         if (Input.GetKeyDown(KeyCode.UpArrow))
             CurrentPosition = ChessPlayerInput.MovePlayer(CurrentPosition, ChessMovementDirection.Forward, _inverseMovement);
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -72,9 +88,26 @@ public class ChessPlayer
             ActivePiece.MovePiece(CurrentBlock);
             CurrentBlock.CurrentChessPiece = ActivePiece;
             _board.ResetHighlightedBlocks();
+            CurrentBlock.AdjustEffect(GridBlockEffect.Selected);
             return true;
         }
 
         return false;
+    }
+
+    private (GridBlock, GridBlock) PickPossibleBlock()
+    {
+       List<GridBlock> blocks = _board.GetAllBlocksOfColor(Color);
+       int randomBlockIndex = Random.Range(0, blocks.Count - 1);
+       List<GridBlock> potentialPos = blocks[randomBlockIndex].CurrentChessPiece.GetPotentialPositions(_board);
+       while (potentialPos.Count == 0)
+       {
+           blocks.Remove(blocks[randomBlockIndex]); // block has no moves.
+           if (blocks.Count == 0) return (null, null); // no more blocks
+           randomBlockIndex = Random.Range(0, blocks.Count - 1);
+           potentialPos = blocks[randomBlockIndex].CurrentChessPiece.GetPotentialPositions(_board);
+       }
+       // found a block with moves, return a random movement.
+       return (blocks[randomBlockIndex], potentialPos[Random.Range(0, potentialPos.Count - 1)]);
     }
 }

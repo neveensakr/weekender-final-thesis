@@ -118,4 +118,17 @@ public class ChessBoard : MonoBehaviour
             onKingKill.Invoke();
         }
     }
+
+    public List<GridBlock> GetAllBlocksOfColor(ChessPieceColor color)
+    {
+        List<GridBlock> blocks = new List<GridBlock>();
+        
+        foreach (GridBlock block in _gridBlocks)
+        {
+            if (block.CurrentChessPiece && block.CurrentChessPiece.Color == color)
+                blocks.Add(block);
+        }
+
+        return blocks;
+    }
 }
