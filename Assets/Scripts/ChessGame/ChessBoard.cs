@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChessBoard : MonoBehaviour
 {
-    public List<Vector2> HighlightedBlocks = new List<Vector2>();
+    public List<GridBlock> HighlightedBlocks = new List<GridBlock>();
     
     private GridBlock[] _gridBlocks = new GridBlock[64];
     private ChessPiece[] _pieces = new ChessPiece[32];
@@ -86,37 +86,22 @@ public class ChessBoard : MonoBehaviour
         return _gridBlocks[index];
     }
 
-    public void HighlightBlocks(List<Vector2> positions)
+    public void HighlightBlocks(List<GridBlock> blocks)
     {
         ResetHighlightedBlocks();
-        HighlightedBlocks = positions;
-        foreach (Vector2 position in positions)
+        HighlightedBlocks = blocks;
+        foreach (GridBlock block in blocks)
         {
-            GetBlockAtPos(position).AdjustEffect(GridBlockEffect.PotentialPosition);
+            block.AdjustEffect(GridBlockEffect.PotentialPosition);
         }
     }
 
     public void ResetHighlightedBlocks()
     {
-        foreach (Vector2 position in HighlightedBlocks)
+        foreach (GridBlock block in HighlightedBlocks)
         {
-            GetBlockAtPos(position).AdjustEffect(GridBlockEffect.Normal);
+            block.AdjustEffect(GridBlockEffect.Normal);
         }
         HighlightedBlocks.Clear();
-    }
-
-    public void CleanPotentialPositions(List<Vector2> potentialPositions, ChessPiece piece)
-    {
-        // The player can't move on positions occupied by their pieces
-        for (int i = potentialPositions.Count - 1; i >= 0; i--)
-        {
-            ChessPiece pieceAtPos = GetBlockAtPos(potentialPositions[i]).CurrentChessPiece;
-            if (pieceAtPos && pieceAtPos.Color == piece.Color)
-            {
-                potentialPositions.RemoveAt(i);
-            }
-        }
-        
-        HighlightBlocks(potentialPositions);
     }
 }

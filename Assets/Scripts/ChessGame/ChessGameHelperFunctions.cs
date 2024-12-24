@@ -25,6 +25,22 @@ public static class ChessGameHelperFunctions
         return (position.x < 8 && position.y < 8 && position.x >= 0 && position.y >= 0);
     }
 
+    public static List<Vector2> GetDirectNeighboursInBounds(Vector2 position)
+    {
+        List<Vector2> positions = new List<Vector2>();
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                Vector2 potentialPosition = new Vector2(position.x + x, position.y + y);
+                if (CheckIfPosInBounds(potentialPosition) && potentialPosition != position)
+                    positions.Add(potentialPosition);
+            }
+        }
+
+        return positions;
+    }
+
     public static List<Vector2> GetDiagonalPositions(Vector2 currentPosition)
     {
         List<Vector2> positions = new List<Vector2>();

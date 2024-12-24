@@ -143,4 +143,31 @@ public class ChessGameHelperFunctionsTests
             Assert.Contains(expectedPos2, result, $"The result should contain the position {expectedPos2}.");
         }
     }
+    
+    [Test]
+    public void GetDirectNeighboursInBounds_ZeroPoint()
+    {
+        Vector2 currentPosition = new Vector2(0, 0);
+        List<Vector2> result = ChessGameHelperFunctions.GetDirectNeighboursInBounds(currentPosition);
+
+        Assert.Contains(new Vector2(1, 0), result);
+        Assert.Contains(new Vector2(1, 1), result);
+        Assert.Contains(new Vector2(0, 1), result);
+    }
+    
+    [Test]
+    public void GetDirectNeighboursInBounds_NonZeroPoint()
+    {
+        Vector2 currentPosition = new Vector2(3, 4);
+        List<Vector2> result = ChessGameHelperFunctions.GetDirectNeighboursInBounds(currentPosition);
+
+        Assert.Contains(new Vector2(2, 3), result);
+        Assert.Contains(new Vector2(3, 3), result);
+        Assert.Contains(new Vector2(4, 3), result);
+        Assert.Contains(new Vector2(2, 4), result);
+        Assert.Contains(new Vector2(4, 4), result);
+        Assert.Contains(new Vector2(2, 5), result);
+        Assert.Contains(new Vector2(3, 5), result);
+        Assert.Contains(new Vector2(4, 5), result);
+    }
 }

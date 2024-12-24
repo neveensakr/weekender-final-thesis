@@ -1,23 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ChessKing : ChessPiece
 {
-    public override List<Vector2> GetPotentialPositions()
+    private Vector2[] direcions = new Vector2[8]
     {
-        List<Vector2> movements = new();
-        
-        for (int x = -1; x <= 1; x++)
+        new Vector2(0, 1),
+        new Vector2(0, -1),
+        new Vector2(-1, 0),
+        new Vector2(1, 0),
+        new Vector2(1, 1),
+        new Vector2(-1, -1),
+        new Vector2(1, -1),
+        new Vector2(-1, 1),
+    };
+    
+    public override List<GridBlock> GetPotentialPositions(ChessBoard board)
+    {
+        List<GridBlock> potentialPositions = new List<GridBlock>();
+        List<Vector2> legalPositions = ChessGameHelperFunctions.GetDirectNeighboursInBounds(CurrentPosition);
+
+        foreach (Vector2 movementDirection in direcions)
         {
-            for (int y = -1; y <= 1; y++)
+            GridBlock currentBlock = board.GetBlockAtPos(CurrentPosition);
+            while (true)
             {
-                Vector2 potentialPosition = new Vector2(CurrentPosition.x + x, CurrentPosition.y + y);
-                if (ChessGameHelperFunctions.CheckIfPosInBounds(potentialPosition) && potentialPosition != CurrentPosition)
-                    movements.Add(potentialPosition);
+                Vector2 potentialPos = currentBlock.Position + movementDirection;
+                if (!ChessGameHelperFunctions.CheckIfPosInBounds(potentialPos)) // out of bounds, go to next direction
+                    break;
+                if (!legalPositions.Contains(potentialPos)) break; // not a valid position for this piece, break
+                GridBlock potentialBlock = board.GetBlockAtPos(currentBlock.Position + movementDirection);
+                // Found a piece
+                if (potentialBlock.CurrentChessPiece)
+                {
+                    // if opponent's piece, add the position
+                    if (potentialBlock.CurrentChessPiece.Color != Color)
+                        potentialPositions.Add(potentialBlock);
+                    break; // can't proceed in this direction, break.
+                }
+                potentialPositions.Add(potentialBlock); // add it if it passed all the above
+                currentBlock = potentialBlock;
             }
         }
 
-        return movements;
+        return potentialPositions;
     }
 }

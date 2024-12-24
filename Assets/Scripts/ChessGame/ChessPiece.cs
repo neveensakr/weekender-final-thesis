@@ -6,6 +6,7 @@ public abstract class ChessPiece : MonoBehaviour
 {
     public Vector2 CurrentPosition;
     public ChessPieceColor Color;
+    public bool HasMoved = false;
     
     public void Setup(Vector3 initialPosition, ChessPieceColor color)
     {
@@ -15,10 +16,11 @@ public abstract class ChessPiece : MonoBehaviour
         GetComponentInChildren<Renderer>().material = Resources.Load<Material>("Chess/ChessPiece_" + color + "_M");
     }
 
-    public abstract List<Vector2> GetPotentialPositions();
+    public abstract List<GridBlock> GetPotentialPositions(ChessBoard board);
 
     public void MovePiece(GridBlock targetBlock)
     {
+        HasMoved = true;
         CurrentPosition = targetBlock.Position;
         transform.position = new Vector3(CurrentPosition.x, transform.position.y, CurrentPosition.y);
     }

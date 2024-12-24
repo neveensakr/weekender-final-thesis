@@ -4,16 +4,47 @@ using UnityEngine;
 
 public class ChessPawn : ChessPiece
 {
-    public override List<Vector2> GetPotentialPositions()
+    public override List<GridBlock> GetPotentialPositions(ChessBoard board)
     {
-        List<Vector2> movements = new();
-        
-        for (int x = 1; x <= 2; x++)
+        List<GridBlock> potentialPositions = new List<GridBlock>();
+        // Go Forward
+        Vector2 potentialPos = CurrentPosition + new Vector2(0, 1);
+        if (ChessGameHelperFunctions.CheckIfPosInBounds(potentialPos)) // in bounds
         {
-            int increment = Color == ChessPieceColor.Black ? -x : x;
-            movements.Add(new Vector2(CurrentPosition.x, CurrentPosition.y + increment));
+            GridBlock potentialBlock = board.GetBlockAtPos(potentialPos);
+            if (!potentialBlock.CurrentChessPiece)
+                potentialPositions.Add(potentialBlock);
         }
-
-        return movements;
+        // Can move forward two blocks if it's the first time.
+        if (!HasMoved)
+        {
+            potentialPos = CurrentPosition + new Vector2(0, 2);
+            if (ChessGameHelperFunctions.CheckIfPosInBounds(potentialPos)) // in bounds
+            {
+                GridBlock potentialBlock = board.GetBlockAtPos(potentialPos);
+                if (!potentialBlock.CurrentChessPiece)
+                    potentialPositions.Add(potentialBlock);
+            }
+        }
+        // Go Diagonal Left
+        potentialPos = CurrentPosition + new Vector2(-1, 1);
+        if (ChessGameHelperFunctions.CheckIfPosInBounds(potentialPos)) // in bounds
+        {
+            GridBlock potentialBlock = board.GetBlockAtPos(potentialPos);
+            // Can Kill a Piece
+            if (potentialBlock.CurrentChessPiece && potentialBlock.CurrentChessPiece.Color != Color)
+                potentialPositions.Add(potentialBlock);
+        }
+        // Go Diagonal Right
+        potentialPos = CurrentPosition + new Vector2(1, 1);
+        if (ChessGameHelperFunctions.CheckIfPosInBounds(potentialPos)) // in bounds
+        {
+            GridBlock potentialBlock = board.GetBlockAtPos(potentialPos);
+            // Can Kill a Piece
+            if (potentialBlock.CurrentChessPiece && potentialBlock.CurrentChessPiece.Color != Color)
+                potentialPositions.Add(potentialBlock);
+        }
+        
+        return potentialPositions;
     }
 }

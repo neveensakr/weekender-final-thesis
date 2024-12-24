@@ -62,13 +62,13 @@ public class ChessGameManager : MonoBehaviour
                 board.GetBlockAtPos(ActivePiece.CurrentPosition).AdjustEffect(GridBlockEffect.Normal);
             ActivePiece = newPiece;
             CurrentBlock.AdjustEffect(GridBlockEffect.Selected);
-            board.CleanPotentialPositions(ActivePiece.GetPotentialPositions(), ActivePiece);
+            board.HighlightBlocks(ActivePiece.GetPotentialPositions(board));
         }
     }
 
     private void MoveActivePiece()
     {
-        if (ActivePiece && board.HighlightedBlocks.Contains(CurrentPlayerPosition))
+        if (ActivePiece && board.HighlightedBlocks.Contains(board.GetBlockAtPos(CurrentPlayerPosition)))
         {
             GridBlock oldBlock = board.GetBlockAtPos(ActivePiece.CurrentPosition);
             oldBlock.CurrentChessPiece = null;
@@ -83,7 +83,7 @@ public class ChessGameManager : MonoBehaviour
     {
         if (currentBlock.CurrentChessPiece == activePiece && activePiece) // we were on a selected piece, don't change the color back to Normal
             currentBlock.AdjustEffect(GridBlockEffect.Selected);
-        else if (board.HighlightedBlocks.Contains(currentBlock.Position)) // we were on a potential position
+        else if (board.HighlightedBlocks.Contains(board.GetBlockAtPos(currentBlock.Position))) // we were on a potential position
             currentBlock.AdjustEffect(GridBlockEffect.PotentialPosition);
         else // we were not on a selected or potential block, so change the color back to normal
             currentBlock.AdjustEffect(GridBlockEffect.Normal);
