@@ -5,28 +5,34 @@ using UnityEngine;
 
 public class ChessGameManager : MonoBehaviour
 {
-    public ChessPlayer player_1;
-    public ChessPlayer player_2;
-    private ChessBoard board;
+    // Player Instances
+    private ChessPlayer _player1;
+    private ChessPlayer _player2;
     private ChessPlayer _playerCurrentTurn;
+    // The Chessboard
+    private ChessBoard _board;
+    // Flag, set to true when the game ends
     private bool _gameEnded;
     
     void Start()
     {
+        // Initialize the Board and Players, setting Black to be an AI.
         SpawnBoard();
-        player_1 = new ChessPlayer(board, ChessPieceColor.White, new Vector2(3, 1), false);
-        player_2 = new ChessPlayer(board, ChessPieceColor.Black, new Vector2(3, 6), true);
-        _playerCurrentTurn = player_1;
+        _player1 = new ChessPlayer(_board, ChessPieceColor.White, new Vector2(3, 1), false);
+        _player2 = new ChessPlayer(_board, ChessPieceColor.Black, new Vector2(3, 6), true);
+        _playerCurrentTurn = _player1;
     }
 
     private void Update()
     {
+        // Only move if the game didn't end
         if (!_gameEnded)
         {
+            // Switch turns only when a piece is moved.
             bool pieceMoved = _playerCurrentTurn.Move();
-            if (pieceMoved) _playerCurrentTurn = (_playerCurrentTurn == player_1) ? player_2 : player_1;
-        
-            GridBlock newBlock = board.GetBlockAtPos(_playerCurrentTurn.CurrentPosition);
+            if (pieceMoved) _playerCurrentTurn = (_playerCurrentTurn == _player1) ? _player2 : _player1;
+            // Update the effect on the block the player is on, if they moved
+            GridBlock newBlock = _board.GetBlockAtPos(_playerCurrentTurn.CurrentPosition);
             if (_playerCurrentTurn.CurrentBlock != newBlock)
             {
                 SetHoverEffect(_playerCurrentTurn.CurrentBlock, newBlock, _playerCurrentTurn.ActivePiece);
@@ -37,26 +43,30 @@ public class ChessGameManager : MonoBehaviour
 
     private void SpawnBoard()
     {
-        board = Instantiate(Resources.Load<GameObject>("Chess/ChessBoard")).GetComponent<ChessBoard>();
-        board.Initialize();
-        board.onKingKill.AddListener(EndGame);
+        // Spawn and Initialize the board
+        _board = Instantiate(Resources.Load<GameObject>("Chess/ChessBoard")).GetComponent<ChessBoard>();
+        _board.Initialize();
+        // Trigger the EndGame function when the king dies
+        _board.onKingKill.AddListener(EndGame);
     }
 
     private void SetHoverEffect(GridBlock currentBlock, GridBlock nextBlock, ChessPiece activePiece)
     {
-        if (currentBlock.CurrentChessPiece == activePiece && activePiece) // we were on a selected piece, don't change the color back to Normal
+        // If the player was on a selected block, keep it Selected
+        if (currentBlock.CurrentChessPiece == activePiece && activePiece) 
             currentBlock.AdjustEffect(GridBlockEffect.Selected);
-        else if (board.HighlightedBlocks.Contains(board.GetBlockAtPos(currentBlock.Position))) // we were on a potential position
+        // If the player was on a potential position block, keep it Highlighted
+        else if (_board.HighlightedBlocks.Contains(_board.GetBlockAtPos(currentBlock.Position)))
             currentBlock.AdjustEffect(GridBlockEffect.PotentialPosition);
-        else // we were not on a selected or potential block, so change the color back to normal
-            currentBlock.AdjustEffect(GridBlockEffect.Normal);
-        
+        // Otherwise, change the color back to Normal
+        else currentBlock.AdjustEffect(GridBlockEffect.Normal);
+        // Highlight the next block
         nextBlock.AdjustEffect(GridBlockEffect.Hover);
     }
 
     private void EndGame()
     {
-        Debug.Log("Game Ended");
+        Debug.Log("[ChessGameManager - EndGame] Game Ended");
         _gameEnded = true;
     }
 }

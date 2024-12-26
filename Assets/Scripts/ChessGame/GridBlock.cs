@@ -1,30 +1,32 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class GridBlock : MonoBehaviour
 {
-    public ChessPiece CurrentChessPiece;
-    public Vector2 Position;
-    private Material _originalMaterial;
+    // Block materials for the different effects
     [SerializeField] private Material _hoverMaterial;
     [SerializeField] private Material _selectedMaterial;
     [SerializeField] private Material _potentialPositionMaterial;
-    [SerializeField] private TextMeshProUGUI _idText;
+    // The chess piece on this block
+    public ChessPiece CurrentChessPiece;
+    public Vector2 Position;
+    // The original material is set based on the color
+    private Material _originalMaterial;
 
-    public void Setup(int index, Vector3 initialPosition, ChessPieceColor color)
+    public void Setup(Vector3 initialPosition, ChessPieceColor color)
     {
+        // Set the position and material based on the color
         transform.position = initialPosition;
         Position = new Vector2(initialPosition.x, initialPosition.z);
         _originalMaterial = Resources.Load<Material>("Chess/ChessPiece_" + color + "_M");
         GetComponentInChildren<Renderer>().material = _originalMaterial;
-        _idText.text = initialPosition.x + ", " + initialPosition.z + ": i = " + index;
     }
 
     public void AdjustEffect(GridBlockEffect effect)
     {
+        // Set the material of the block based on the effect
         switch (effect)
         {
             case GridBlockEffect.Normal:
