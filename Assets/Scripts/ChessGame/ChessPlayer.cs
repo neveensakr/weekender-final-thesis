@@ -64,7 +64,7 @@ public class ChessPlayer
         CurrentPosition = targetBlock.Item1.Position;
         CurrentBlock = targetBlock.Item1;
         SetActivePiece();
-        // Move the picked block to the target positon
+        // Move the picked block to the target position
         Debug.Log("[ChessPlayer - AIMove] Moving Block to: " + targetBlock.Item2.Position);
         CurrentPosition = targetBlock.Item2.Position;
         CurrentBlock = targetBlock.Item2;

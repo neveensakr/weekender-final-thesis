@@ -44,7 +44,9 @@ public class ChessGameManager : MonoBehaviour
     private void SpawnBoard()
     {
         // Spawn and Initialize the board
-        _board = Instantiate(Resources.Load<GameObject>("Chess/ChessBoard")).GetComponent<ChessBoard>();
+        _board = Instantiate(Resources.Load<GameObject>("Chess/ChessBoard"), transform, true).GetComponent<ChessBoard>();
+        _board.transform.localPosition = Vector3.zero;
+        _board.transform.localScale = Vector3.one;
         _board.Initialize();
         // Trigger the EndGame function when the king dies
         _board.onKingKill.AddListener(EndGame);

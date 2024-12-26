@@ -18,7 +18,7 @@ public class GridBlock : MonoBehaviour
     public void Setup(Vector3 initialPosition, ChessPieceColor color)
     {
         // Set the position and material based on the color
-        transform.position = initialPosition;
+        transform.localPosition = initialPosition;
         Position = new Vector2(initialPosition.x, initialPosition.z);
         _originalMaterial = Resources.Load<Material>("Chess/ChessPiece_" + color + "_M");
         GetComponentInChildren<Renderer>().material = _originalMaterial;
