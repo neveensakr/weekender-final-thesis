@@ -1165,13 +1165,17 @@ GameObject:
   m_Component:
   - component: {fileID: 1997170874371845950}
   - component: {fileID: 210965391313275452}
-  - component: {fileID: 3827719319610850737}
-  - component: {fileID: 4162599904039997408}
-  - component: {fileID: 7014474636155652901}
-  - component: {fileID: 401536031239382451}
-  - component: {fileID: 690973975008808055}
   - component: {fileID: 3084360223368614644}
   - component: {fileID: 3367463771721535713}
+  - component: {fileID: 6875658955335486754}
+  - component: {fileID: 7014474636155652901}
+  - component: {fileID: 401536031239382451}
+  - component: {fileID: 4162599904039997408}
+  - component: {fileID: 3827719319610850737}
+  - component: {fileID: 690973975008808055}
+  - component: {fileID: 8617765201741298507}
+  - component: {fileID: 4258467638942040442}
+  - component: {fileID: 2657067716538517565}
   m_Layer: 0
   m_Name: Woman
   m_TagString: Untagged
@@ -1219,7 +1223,57 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3827719319610850737
+--- !u!54 &3084360223368614644
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059709512354644708}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &3367463771721535713
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059709512354644708}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 3.45
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.8, z: 0}
+--- !u!114 &6875658955335486754
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1228,22 +1282,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 1059709512354644708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eb6a53596b7b8c4bb802bdd4b899af4, type: 3}
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
---- !u!114 &4162599904039997408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059709512354644708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b93887e91190bf248a789ac5b2b78de4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 19a30595bd2e5e34db4cfa10b70be5f9, type: 2}
+    - {fileID: 11400000, guid: 20df0cf57781606459a06afe4d344497, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4162599904039997408}
+          m_TargetAssemblyTypeName: WomanAnimationController, Assembly-CSharp
+          m_MethodName: StopWalking
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4162599904039997408}
+          m_TargetAssemblyTypeName: WomanAnimationController, CharacterScripts
+          m_MethodName: StartWalking
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &7014474636155652901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1423,6 +1497,31 @@ MonoBehaviour:
   - {fileID: 5024159932810173805}
   - {fileID: 2582771442766001171}
   - {fileID: 70226225747555777}
+--- !u!114 &4162599904039997408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059709512354644708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93887e91190bf248a789ac5b2b78de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3827719319610850737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059709512354644708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb6a53596b7b8c4bb802bdd4b899af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 0}
 --- !u!114 &690973975008808055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1437,35 +1536,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 1
   _camera: {fileID: 0}
---- !u!54 &3084360223368614644
-Rigidbody:
+--- !u!114 &8617765201741298507
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1059709512354644708}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!136 &3367463771721535713
-CapsuleCollider:
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f8417f7197a27c439fe40e5f1d5a90d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4258467638942040442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059709512354644708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab90e5511ea47904683229142b68547f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _leftArmIKConstraint: {fileID: 8713838204650618812}
+  _rightArmIKConstraint: {fileID: 6848097981116097289}
+  _leftArmRotationConstraint: {fileID: 2274521553799032338}
+  _rightArmRotationConstraint: {fileID: 8384347039741471894}
+  _playerCollider: {fileID: 3367463771721535713}
+  _leftTargetRotation: {x: 0, y: -1, z: 0}
+  _leftContactOffSet: {x: 0.16, y: 0.14, z: 0.17}
+  _rightTargetRotation: {x: 0, y: -1, z: 0}
+  _rightContactOffSet: {x: -0.1, y: 0.14, z: 0.25}
+--- !u!65 &2657067716538517565
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1479,14 +1584,12 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 3.45
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.8, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 1.6, y: 2.66, z: 2.36}
+  m_Center: {x: 0, y: 1.97, z: 1.46}
 --- !u!1 &1061097692255210217
 GameObject:
   m_ObjectHideFlags: 0
@@ -4042,7 +4145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 1
+  m_Weight: 0
   m_Effectors:
   - m_Transform: {fileID: 7324782137936585107}
     m_Style:

@@ -36,9 +36,9 @@ public class IntroManager : MonoBehaviour
         _currentGameMode = GameMode.InteractiveMode;
         Debug.Log("[IntroManager] Interactive Mode Activated.");
         _introUI.SetActive(false);
-        FindObjectOfType<Movement>().EnablePlayerMovement();
+        InputManager.Instance.EnableInput();
         _playerCamera.SetActive(true);
-        _objectInteractionRig.weight = 1;
+        _objectInteractionRig.weight = 0;
         EndIntroSequence();
     }
 

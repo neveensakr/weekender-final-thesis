@@ -11,6 +11,11 @@ public class WomanAnimationController : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
     }
+    
+    public void StartWalking()
+    {
+        _animator.SetBool("isWalking", true);
+    }
 
     public void StopWalking()
     {

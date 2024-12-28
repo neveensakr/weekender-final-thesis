@@ -1,7 +1,8 @@
 {
-    "name": "InteractableScripts",
+    "name": "CharacterScripts",
     "rootNamespace": "",
     "references": [
+        "GUID:7f7d1af65c2641843945d409d28f2e20",
         "GUID:16a8901771892404080b63207c3bc863"
     ],
     "includePlatforms": [],

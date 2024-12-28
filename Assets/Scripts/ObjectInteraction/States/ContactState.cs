@@ -9,7 +9,7 @@ public class ContactState : BaseState
 
     public override void EnterState()
     {
-        UtilityFunctions.CurrentInteractable.StartInteraction();
+        //UtilityFunctions.CurrentInteractable.StartInteraction();
     }
 
     public override void UpdateState()

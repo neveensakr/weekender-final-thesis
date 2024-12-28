@@ -7,7 +7,7 @@ using UnityEngine.Animations.Rigging;
 public class ObjectInteractionUtilityFunctions
 {
     public Collider CurrentObjectCollider { get; set; }
-    public IInteractable CurrentInteractable { get; set; }
+    public Interactable CurrentInteractable { get; set; }
     public Vector3 LeftTargetRotationDirection { get; set; }
     public Vector3 RightTargetRotationDirection { get; set; }
     public Vector3 LeftTargetContactOffSet { get; set; }

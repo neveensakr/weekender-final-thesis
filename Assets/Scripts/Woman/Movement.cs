@@ -7,7 +7,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Transform _camera;
     private Rigidbody _rigidbody;
     private Animator _animator;
-    private bool _movementEnabled = false;
+    private bool _movementEnabled;
     
     void Start()
     {
@@ -15,22 +15,23 @@ public class Movement : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void EnablePlayerMovement()
-    {
-        GetComponent<FollowTarget>().enabled = false;
-        _movementEnabled = true;
-        GetComponent<RigBuilder>().layers[0].active = false;
-    }
-
     void Update()
     {
-        if (_movementEnabled)
+        if (InputManager.Instance.InputActivated)
+        {
+            if (!_movementEnabled)
+            {
+                _movementEnabled = true;
+                GetComponent<FollowTarget>().enabled = false;
+            }
+            
             _animator.SetBool("isWalking", _rigidbody.velocity != Vector3.zero);
+        }
     }
 
     private void FixedUpdate()
     {
-        if (_movementEnabled)
+        if (InputManager.Instance.InputActivated)
         {
             float horizontalInput = Input.GetAxisRaw("Horizontal");
             float verticalInput = Input.GetAxisRaw("Vertical");
@@ -41,6 +42,7 @@ public class Movement : MonoBehaviour
                 float angleToRotateTo = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
                 transform.rotation = Quaternion.Euler(0f, angleToRotateTo , 0f);
                 Vector3 moveDirection = Quaternion.Euler(0f, angleToRotateTo , 0f) * Vector3.forward;
+                moveDirection.y = 0;
                 _rigidbody.velocity = moveDirection.normalized * _speed;
             }
             else

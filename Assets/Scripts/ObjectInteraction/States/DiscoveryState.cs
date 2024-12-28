@@ -20,7 +20,7 @@ public class DiscoveryState : BaseState
     
     public override void OnTriggerEnter(Collider other)
     {
-        IInteractable interactable = other.GetComponent<IInteractable>();
+        Interactable interactable = other.GetComponent<Interactable>();
         if (interactable != null && (UtilityFunctions.CurrentObjectCollider == null))
         {
             UtilityFunctions.CurrentInteractable = interactable;

@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Painting : MonoBehaviour, IInteractable
+public class Painting : Interactable
 {
-    public void StartInteraction()
+    public override void StartInteraction(GameObject player)
     {
         Debug.Log("[Painting] Starting Interaction...");
     }
 
-    public void ExitInteraction()
+    public override void ExitInteraction()
     {
         Debug.Log("[Painting] Exiting Interaction...");
     }

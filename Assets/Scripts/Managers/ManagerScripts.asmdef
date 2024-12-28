@@ -1,8 +1,9 @@
 {
-    "name": "InteractableScripts",
+    "name": "ManagerScripts",
     "rootNamespace": "",
     "references": [
-        "GUID:16a8901771892404080b63207c3bc863"
+        "GUID:a45e6a3e0cf216743ae8d23a1af9380e",
+        "GUID:7f7d1af65c2641843945d409d28f2e20"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
