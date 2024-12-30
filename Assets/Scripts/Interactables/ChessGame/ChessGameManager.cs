@@ -5,28 +5,44 @@ using UnityEngine;
 
 public class ChessGameManager : MonoBehaviour
 {
+    public static ChessGameManager Instance;
+    public bool GameEnded { get; private set; }
+    
     // Player Instances
     private ChessPlayer _player1;
     private ChessPlayer _player2;
     private ChessPlayer _playerCurrentTurn;
     // The Chessboard
     private ChessBoard _board;
-    // Flag, set to true when the game ends
-    private bool _gameEnded;
-    
+    // Flag set to true when the game starts
+    private bool _gameStarted;
+
     void Start()
+    {
+        Instance = this;
+    }
+
+    public void StartGame()
     {
         // Initialize the Board and Players, setting Black to be an AI.
         SpawnBoard();
         _player1 = new ChessPlayer(_board, ChessPieceColor.White, new Vector2(3, 1), false);
         _player2 = new ChessPlayer(_board, ChessPieceColor.Black, new Vector2(3, 6), true);
         _playerCurrentTurn = _player1;
+        _gameStarted = true;
+    }
+    
+    public void ResetGame()
+    {
+        // Initialize the Board and Players, setting Black to be an AI.
+        if (_board.gameObject) Destroy(_board.gameObject);
+        GameEnded = false;
     }
 
     private void Update()
     {
         // Only move if the game didn't end
-        if (!_gameEnded)
+        if (_gameStarted && !GameEnded)
         {
             // Switch turns only when a piece is moved.
             bool pieceMoved = _playerCurrentTurn.Move();
@@ -69,6 +85,7 @@ public class ChessGameManager : MonoBehaviour
     private void EndGame()
     {
         Debug.Log("[ChessGameManager - EndGame] Game Ended");
-        _gameEnded = true;
+        GameEnded = true;
+        _gameStarted = false;
     }
 }
