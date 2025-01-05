@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2f2646bc561a85748aa6cf6b2e428f3d
+guid: f6c8b8ed91f8c124e8a7b5df7687d068
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 01 - Default
-    second: {fileID: 2100000, guid: fcd90f166f983f24fbabd1714af4cea9, type: 2}
+      name: wire_088144225
+    second: {fileID: 2100000, guid: eafbb17140e5a534a91d749a01545174, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -53,7 +53,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
