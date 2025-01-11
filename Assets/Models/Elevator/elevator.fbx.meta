@@ -3,7 +3,32 @@ guid: ae0ec9e90e93a494285062adad661c57
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Buttons
+    second: {fileID: 2100000, guid: de146cdbefd94e44bb1b79761042affa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DarkerMetal
+    second: {fileID: 2100000, guid: a922c0f8a5a2e684b9f495b1e922c089, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Emission
+    second: {fileID: 2100000, guid: 40a870495e4d6b343a67b96d2f08614c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 4f7a5b5917161c841b67cc03ce9990c8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mirror
+    second: {fileID: 2100000, guid: 86016759b33066a4ba3794d58fbdc550, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
