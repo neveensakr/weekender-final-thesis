@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4477316691145400606}
   - component: {fileID: 2812093812904447208}
   - component: {fileID: 6037208235773857105}
+  - component: {fileID: 1405975267399226571}
   m_Layer: 0
   m_Name: TableLamp
   m_TagString: Untagged
@@ -26,14 +27,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2747588966165544522}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 19.004, y: 2.038, z: 30.299}
-  m_LocalScale: {x: 1.2580463, y: 1.2580463, z: 1.2580463}
+  m_LocalScale: {x: 1.2580463, y: 1.2580462, z: 1.2580462}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6955386311963426875}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &2812093812904447208
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -86,6 +87,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1405975267399226571
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747588966165544522}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6263999279050201656, guid: 7f2fa3538304c1e46abd3e0b207f7a6e, type: 3}
 --- !u!1 &8884324185071501131
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,7 +193,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1

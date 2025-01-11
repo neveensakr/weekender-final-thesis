@@ -90,7 +90,7 @@ Light:
   m_BounceIntensity: 0.1
   m_ColorTemperature: 3000
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: -1.5070082e-31, z: 6.96e-43, w: -2.6386463e-32}
+  m_BoundingSphereOverride: {x: 0, y: 1e-45, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -208,7 +208,8 @@ Light:
   m_BounceIntensity: 0.1
   m_ColorTemperature: 3000
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 42, z: 14, w: 0}
+  m_BoundingSphereOverride: {x: -3.5138797e+31, y: 3.0698626e+21, z: 1.040553e-12,
+    w: 1.2431871e+18}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -326,7 +327,8 @@ Light:
   m_BounceIntensity: 0.1
   m_ColorTemperature: 3000
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 42, z: 14, w: 0}
+  m_BoundingSphereOverride: {x: -628020030, y: -1.3025044e-10, z: -0.000094267896,
+    w: -0.000001224993}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -444,7 +446,8 @@ Light:
   m_BounceIntensity: 0.1
   m_ColorTemperature: 3000
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: NaN, y: 0.07421875, z: 0.09375, w: 23}
+  m_BoundingSphereOverride: {x: -6.0917343e-12, y: -1.6011246e+25, z: 2.27515e-14,
+    w: -439633630}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -562,7 +565,7 @@ Light:
   m_BounceIntensity: 0.1
   m_ColorTemperature: 3000
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 1e-45, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 1.663e-42, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -785,7 +788,7 @@ Light:
   m_BounceIntensity: 0.1
   m_ColorTemperature: 3000
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 12, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 1.05e-43, z: 0, w: NaN}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -849,7 +852,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: cfa4b7dc05ed028408317f98ecd64c56,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -29.56
+      value: -12.26
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cfa4b7dc05ed028408317f98ecd64c56,
         type: 3}
@@ -932,7 +935,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3581615990592486313}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cfa4b7dc05ed028408317f98ecd64c56,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5780885636963548461}
   m_SourcePrefab: {fileID: 100100000, guid: cfa4b7dc05ed028408317f98ecd64c56, type: 3}
 --- !u!4 &8467265891717293086 stripped
 Transform:
@@ -940,3 +947,31 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8217798331488420853}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9136138824754626212 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cfa4b7dc05ed028408317f98ecd64c56,
+    type: 3}
+  m_PrefabInstance: {fileID: 8217798331488420853}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &5780885636963548461
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9136138824754626212}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5285586384492419182, guid: cfa4b7dc05ed028408317f98ecd64c56, type: 3}
