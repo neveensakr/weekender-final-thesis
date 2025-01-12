@@ -1174,11 +1174,10 @@ GameObject:
   - component: {fileID: 3827719319610850737}
   - component: {fileID: 690973975008808055}
   - component: {fileID: 8617765201741298507}
-  - component: {fileID: 4258467638942040442}
   - component: {fileID: 2657067716538517565}
   m_Layer: 0
   m_Name: Woman
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1534,7 +1533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bfcbf98617c1a64488a28eeb8a06ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
+  _speed: 3
   _camera: {fileID: 0}
 --- !u!114 &8617765201741298507
 MonoBehaviour:
@@ -1548,27 +1547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f8417f7197a27c439fe40e5f1d5a90d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4258467638942040442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059709512354644708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab90e5511ea47904683229142b68547f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _leftArmIKConstraint: {fileID: 8713838204650618812}
-  _rightArmIKConstraint: {fileID: 6848097981116097289}
-  _leftArmRotationConstraint: {fileID: 2274521553799032338}
-  _rightArmRotationConstraint: {fileID: 8384347039741471894}
-  _playerCollider: {fileID: 3367463771721535713}
-  _leftTargetRotation: {x: 0, y: -1, z: 0}
-  _leftContactOffSet: {x: 0.16, y: 0.14, z: 0.17}
-  _rightTargetRotation: {x: 0, y: -1, z: 0}
-  _rightContactOffSet: {x: -0.1, y: 0.14, z: 0.25}
 --- !u!65 &2657067716538517565
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4109,6 +4087,7 @@ GameObject:
   m_Component:
   - component: {fileID: 975211062253444739}
   - component: {fileID: 6131106057606690509}
+  - component: {fileID: 7697569132832293702}
   m_Layer: 0
   m_Name: ObjectInteractionRig
   m_TagString: Untagged
@@ -4179,6 +4158,27 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0}
     m_Visible: 1
+--- !u!95 &7697569132832293702
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3978367728822196478}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4013646149301847414
 GameObject:
   m_ObjectHideFlags: 0
@@ -7025,6 +7025,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1403445847093924778}
+  - component: {fileID: 8595775279022413966}
   m_Layer: 0
   m_Name: RightArm_target
   m_TagString: Untagged
@@ -7040,13 +7041,34 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8419808921974585571}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 2.259, z: 0.6502495}
+  m_LocalRotation: {x: -0.42359462, y: 0.13148761, z: 0.31217462, w: -0.8401343}
+  m_LocalPosition: {x: 0.12683201, y: 3.012001, z: 1.3035412}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5891629320164319432}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &8595775279022413966
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8419808921974585571}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8434660973561818952
 GameObject:
   m_ObjectHideFlags: 0
@@ -7444,6 +7466,7 @@ GameObject:
   - component: {fileID: 7085264366661118719}
   - component: {fileID: 8713838204650618812}
   - component: {fileID: 2274521553799032338}
+  - component: {fileID: 2458269833167077184}
   m_Layer: 0
   m_Name: LeftArm
   m_TagString: Untagged
@@ -7539,6 +7562,27 @@ MonoBehaviour:
       y: 1
       z: 1
     m_MaintainOffset: 0
+--- !u!95 &2458269833167077184
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903122812783535923}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8911994053413142257
 GameObject:
   m_ObjectHideFlags: 0

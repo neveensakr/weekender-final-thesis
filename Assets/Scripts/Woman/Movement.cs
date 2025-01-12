@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        if (InputManager.Instance.InputActivated)
+        if (InputManager.Instance.InputActivated && IntroManager.Instance.CurrentGameMode == GameMode.InteractiveMode)
         {
             if (!_movementEnabled)
             {
@@ -31,7 +31,7 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (InputManager.Instance.InputActivated)
+        if (InputManager.Instance.InputActivated && IntroManager.Instance.CurrentGameMode == GameMode.InteractiveMode)
         {
             float horizontalInput = Input.GetAxisRaw("Horizontal");
             float verticalInput = Input.GetAxisRaw("Vertical");

@@ -1,4 +1,5 @@
 public enum GameMode {
+    Default,
     StoryMode,
     InteractiveMode
 }
