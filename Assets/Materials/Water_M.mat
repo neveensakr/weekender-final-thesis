@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Water_M
-  m_Shader: {fileID: 4800000, guid: fe69ac9252d9aa947a7fec8074971286, type: 3}
+  m_Shader: {fileID: 4800000, guid: 664a0695b5c1a2c46af14aef38fb32d0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -76,6 +76,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ReflectionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -119,30 +123,36 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _LightInt: 1
-    - _Metallic: 0
+    - _Metallic: 0.926
     - _OcclusionStrength: 1
     - _Parallax: 0.005
+    - _PeakVisibility: 4
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Shininess: 0
-    - _Smoothness: 0.5
+    - _Shininess: 0.127
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
+    - _Specular: 0
     - _SpecularHighlights: 1
     - _SpecularInt: 1
     - _SpecularPow: 64
+    - _Speed: 0.277
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _Visibility: 0.119
+    - _Visibility: 74
+    - _WavePeakVisibility: 10
     - _WorkflowMode: 1
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.1764706, g: 0.4509804, b: 0.75686276, a: 1}
-    - _DarkColor: {r: 0, g: 0, b: 0, a: 1}
+    - _DarkColor: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LightColor: {r: 0.07075471, g: 0.70536107, b: 1, a: 1}
-    - _LightPoint: {r: -26.2, g: 18.3, b: -31.3, a: 0}
-    - _RefractionColor: {r: 0, g: 0.84058, b: 1, a: 1}
+    - _LightColor: {r: 0.07640617, g: 0.7769233, b: 0.95283014, a: 0.87058824}
+    - _LightPoint: {r: 0.14178991, g: 12.21602, b: 57.82888, a: 0}
+    - _RefractionColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _WaterPosition: {r: 0, g: -6.2, b: 0, a: 0}
+    - _WaterSize: {r: 56.445, g: 81.315, b: 1, a: 1}
   m_BuildTextureStacks: []

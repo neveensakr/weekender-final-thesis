@@ -4,40 +4,48 @@ Shader "Unlit/WaterSineShader"
     {
         _LightColor("Light Color", Color) = (1,1,1,1)
         _DarkColor("Dark Color", Color) = (0,0,0,0)
-        _RefractionColor("Refraction Color", Color) = (0,0,0,0)
-        _Visibility("Visibility", Range(0, 1)) = 0.5
-        _Shininess("Shininess", Range(0, 1)) = 0.5
+        _PeakVisibility("Peak Visibility", Range(0, 4)) = 3
+        _Speed("Speed", Range(0, 1)) = 0.5
+        _Smoothness("Smoothness", Range(0, 1)) = 0.5
+        _Metallic("Metallic", Range(0, 1)) = 0.5
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent"}
+        Tags { 
+            "RenderType"="Transparent" 
+            "Queue"="Transparent" 
+            "RenderPipeline" = "UniversalRenderPipeline"
+        }
+        Blend SrcAlpha OneMinusSrcAlpha
+        ZWrite Off
         LOD 100
 
         Pass
         {
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            // make fog work
-            #pragma multi_compile_fog
+            // Allows multiple lights to impact the water
+            #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
 
-            #include "UnityCG.cginc"
+            #include "Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/ShaderLibrary/Lighting.hlsl"
 
             struct appdata
             {
                 float4 vertex : POSITION;
                 float4 normal : NORMAL;
+                float4 tangent : TANGENT;
+                float4 GILightingData : TEXCOORD1;
             };
 
             struct v2f
             {
-                UNITY_FOG_COORDS(1)
-                float4 worldNormal : TEXCOORD1;
-                float4 worldPosition : TEXCOORD2;
+                float3 worldNormal : TEXCOORD1;
+                float3 worldPosition : TEXCOORD2;
                 float4 vertex : SV_POSITION;
-                float3 viewDirection : TEXCOORD4;
-                float accumulatedWater : TEXCOORD6;
-                float waterDepth : TEXCOORD7;
+                float3 viewDirection : TEXCOORD3;
+                float waterDepth : TEXCOORD5;
+                DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 6);
             };
             
             int _WaveCount = 3;
@@ -45,19 +53,16 @@ Shader "Unlit/WaterSineShader"
             float _WaveLengths[3];
             float2 _WaveDirections[3];
 
-            float4 _LightPoint;
-            fixed4 _LightColor;
-            fixed4 _DarkColor;
-            fixed4 _RefractionColor;
-            float _Visibility;
-            float _Shininess;
-
-            float3 addWave(float4 vertex, float amplitude, float2 waveDirection, float waveLength, inout float3 tangent, inout float3 binormal)
+            float4 _LightPoint; // TODO: Remove
+            half4 _LightColor, _DarkColor;
+            float _PeakVisibility, _Smoothness, _Metallic, _Speed;
+            
+            float3 addWave(float3 vertex, float amplitude, float2 waveDirection, float waveLength, inout float4 tangent, inout float4 binormal)
             {
-                float k = (2 * UNITY_PI) / waveLength;
+                float k = (2 * PI) / waveLength;
                 float w = sqrt(9.81 / k);
-                float peak = amplitude / k;
-                float waveDirSpeed = k * (dot(normalize(waveDirection), vertex.xz) - (w * _Time.y));
+                float peak = (amplitude / k) * _PeakVisibility;
+                float waveDirSpeed = k * (dot(normalize(waveDirection), vertex.xz) - (w * _Time.y)) * _Speed;
                 float y = peak * sin(waveDirSpeed);
                 float x = peak * cos(waveDirSpeed);
                 float z = peak * cos(waveDirSpeed);
@@ -68,8 +73,8 @@ Shader "Unlit/WaterSineShader"
                     peak * cos(waveDirSpeed)
                 );
 
-                tangent += waveDerivative;
-                binormal += waveDerivative;
+                tangent.xyz += waveDerivative;
+                binormal.xyz += waveDerivative;
                 return float3(x, y, z);
             }
 
@@ -77,49 +82,48 @@ Shader "Unlit/WaterSineShader"
             {
                 v2f o;
 
-                float3 waveValue = v.vertex.xyz;
-                float3 tangent = float3(1, 0, 0);
-			    float3 binormal = float3(0, 0, 1);
+                float4 tangent = float4(1, 0, 0, v.tangent.w);
+			    float4 binormal = float4(0, 0, 1, v.tangent.w);
                 
+                o.worldPosition = TransformObjectToWorld(v.vertex);
+                o.waterDepth = 0;
                 for (int i = 0; i < _WaveCount; i++)
                 {
-                  waveValue += addWave(v.vertex, _Amplitudes[i], _WaveDirections[i], _WaveLengths[i], tangent, binormal);
+                  o.waterDepth += addWave(v.vertex, _Amplitudes[i], _WaveDirections[i], _WaveLengths[i], tangent, binormal);
                 }
-                o.accumulatedWater = length(v.vertex - waveValue);
-                o.waterDepth = v.vertex.y - waveValue.y;
-                v.vertex.xyz = waveValue;
+                v.vertex.xyz += o.waterDepth;
                 
                 v.normal = float4(normalize(cross(binormal, tangent)), 1);
-                o.worldNormal = float4(UnityObjectToWorldNormal(v.normal), 0);
-                o.worldPosition = mul(unity_ObjectToWorld, v.vertex);
+                o.worldNormal = normalize(TransformObjectToWorldNormal(v.normal.xyz));
                 
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                o.viewDirection = normalize(UnityWorldSpaceViewDir(o.worldPosition));
-                UNITY_TRANSFER_FOG(o,o.vertex);
+                o.vertex = TransformObjectToHClip(v.vertex);
+                o.viewDirection = normalize(GetWorldSpaceViewDir(o.worldPosition));
+                OUTPUT_LIGHTMAP_UV(v.GILightingData, unity_LightmapST, o.lightmapUV);
+                OUTPUT_SH(o.worldNormal, o.vertexSH);
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            half4 frag (v2f i) : SV_Target
             {
-                fixed3 lightDifference = i.worldPosition - _LightPoint;
-                fixed3 lightDir = normalize(lightDifference);
-                fixed intensity = -1 * dot(lightDir, i.worldNormal);
-                // Angle between the view direction and the world normal
-                float a = acos(dot(i.viewDirection, i.worldNormal) / (length(i.viewDirection) * length(i.worldNormal)));
-                // Fresnel based on the Schlick Approximation
-                float r0 = 0.02040466482;
-                float fresnel = r0 + (1 - r0) * pow(1 - cos(a), 5);
-                // Specular Calculation based on https://www.gamedev.net/articles/programming/graphics/rendering-water-as-a-post-process-effect-r2642/
-                half3 eyeDir = (2 * dot(i.viewDirection, i.worldNormal) * i.worldNormal - i.viewDirection);
-                half sepcularDot = saturate(dot(eyeDir.xyz, -lightDir) * 0.5 + 0.5);
-                float specular = (1.0 - fresnel) * saturate(-lightDir.y) * ((pow(sepcularDot, 512.0)) * (_Shininess * 1.8 + 0.2));
-                specular += specular * 25 * saturate(_Shininess - 0.05);
                 // Setting the color based on the Visibility and Saturation
-                fixed4 surfaceColor = lerp(_RefractionColor, _LightColor, saturate(i.accumulatedWater / _Visibility));
-                fixed3 col = lerp(surfaceColor, _DarkColor, saturate(i.waterDepth / fixed3(4.5, 75, 300)));
-                return fixed4(col, surfaceColor.a) * intensity + specular;
+                half4 col = lerp(_LightColor, _DarkColor, saturate(i.waterDepth));
+
+                InputData input_data = (InputData) 0;
+                input_data.positionWS = i.worldPosition;
+                input_data.normalWS = normalize(i.worldNormal);
+                input_data.viewDirectionWS = i.viewDirection;
+                // Sampling the light map data
+                input_data.bakedGI = SAMPLE_GI(i.lightmapUV, i.vertexSH, i.worldNormal);
+                SurfaceData surface_data = (SurfaceData) 0;
+                surface_data.albedo = col;
+                surface_data.metallic = _Metallic;
+                surface_data.smoothness = _Smoothness;
+                surface_data.occlusion = 1;
+                surface_data.alpha = col.a;
+                
+                return UniversalFragmentPBR(input_data, surface_data);
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }
