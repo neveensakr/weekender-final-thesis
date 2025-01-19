@@ -3,7 +3,6 @@ Shader "Unlit/WaterSineShader"
     Properties
     {
         _LightColor("Light Color", Color) = (1,1,1,1)
-        _DarkColor("Dark Color", Color) = (0,0,0,0)
         _PeakVisibility("Peak Visibility", Range(0, 4)) = 3
         _Speed("Speed", Range(0, 1)) = 0.5
         _Smoothness("Smoothness", Range(0, 1)) = 0.5
@@ -44,7 +43,6 @@ Shader "Unlit/WaterSineShader"
                 float3 worldPosition : TEXCOORD2;
                 float4 vertex : SV_POSITION;
                 float3 viewDirection : TEXCOORD3;
-                float waterDepth : TEXCOORD5;
                 DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 6);
             };
             
@@ -54,7 +52,7 @@ Shader "Unlit/WaterSineShader"
             float2 _WaveDirections[3];
 
             float4 _LightPoint; // TODO: Remove
-            half4 _LightColor, _DarkColor;
+            half4 _LightColor;
             float _PeakVisibility, _Smoothness, _Metallic, _Speed;
             
             float3 addWave(float3 vertex, float amplitude, float2 waveDirection, float waveLength, inout float4 tangent, inout float4 binormal)
@@ -86,12 +84,12 @@ Shader "Unlit/WaterSineShader"
 			    float4 binormal = float4(0, 0, 1, v.tangent.w);
                 
                 o.worldPosition = TransformObjectToWorld(v.vertex);
-                o.waterDepth = 0;
+                float3 waterDepth = 0;
                 for (int i = 0; i < _WaveCount; i++)
                 {
-                  o.waterDepth += addWave(v.vertex, _Amplitudes[i], _WaveDirections[i], _WaveLengths[i], tangent, binormal);
+                  waterDepth += addWave(v.vertex, _Amplitudes[i], _WaveDirections[i], _WaveLengths[i], tangent, binormal);
                 }
-                v.vertex.xyz += o.waterDepth;
+                v.vertex.xyz += waterDepth;
                 
                 v.normal = float4(normalize(cross(binormal, tangent)), 1);
                 o.worldNormal = normalize(TransformObjectToWorldNormal(v.normal.xyz));
@@ -105,9 +103,6 @@ Shader "Unlit/WaterSineShader"
 
             half4 frag (v2f i) : SV_Target
             {
-                // Setting the color based on the Visibility and Saturation
-                half4 col = lerp(_LightColor, _DarkColor, saturate(i.waterDepth));
-
                 InputData input_data = (InputData) 0;
                 input_data.positionWS = i.worldPosition;
                 input_data.normalWS = normalize(i.worldNormal);
@@ -115,11 +110,11 @@ Shader "Unlit/WaterSineShader"
                 // Sampling the light map data
                 input_data.bakedGI = SAMPLE_GI(i.lightmapUV, i.vertexSH, i.worldNormal);
                 SurfaceData surface_data = (SurfaceData) 0;
-                surface_data.albedo = col;
+                surface_data.albedo = _LightColor;
                 surface_data.metallic = _Metallic;
                 surface_data.smoothness = _Smoothness;
                 surface_data.occlusion = 1;
-                surface_data.alpha = col.a;
+                surface_data.alpha = _LightColor.a;
                 
                 return UniversalFragmentPBR(input_data, surface_data);
             }

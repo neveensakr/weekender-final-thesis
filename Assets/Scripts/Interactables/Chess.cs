@@ -14,6 +14,7 @@ public class Chess : Interactable
     [SerializeField] private GameObject _chessCamera;
     [SerializeField] private GameObject _closedChessBox;
     [SerializeField] private PlayableDirector _sequence;
+    [SerializeField] private Transform _targetPlayerTransform;
     private bool _initialPromptShown;
     private bool _gameInprogress;
     private bool _expectPlayerInput;
@@ -86,6 +87,8 @@ public class Chess : Interactable
     public override void StartInteraction(GameObject player)
     {
         Debug.Log("[Chess] Starting Interaction...");
+        player.transform.position = new Vector3(_targetPlayerTransform.position.x, 
+            player.transform.position.y, _targetPlayerTransform.position.z);
         _chessCamera.SetActive(true);
         _sequence.Play();
     }
