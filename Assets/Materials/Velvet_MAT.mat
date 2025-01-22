@@ -115,7 +115,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0.398
     - _GlossyReflections: 0
-    - _IndexOfRefraction: 10.68
+    - _IndexOfRefraction: 5.69
     - _Ior: 1
     - _Metallic: 0
     - _NormalMapStrength: 1

@@ -16,8 +16,6 @@ public class WaveProperties : MonoBehaviour
 {
     public Wave[] waves;
 
-    public Transform Light;
-    // Start is called before the first frame update
     void Update()
     {
         float[] amplitudes = new float[waves.Length];
@@ -30,12 +28,11 @@ public class WaveProperties : MonoBehaviour
             wavelengths[i] = waves[i].WaveLength;
             waveDirections[i] = new Vector4(waves[i].WaveDirection.x, waves[i].WaveDirection.y, 0, 0);
         }
-        
-        GetComponent<Renderer>().material.SetFloat("_WaveCount", waves.Length);
-        GetComponent<Renderer>().material.SetFloatArray("_Amplitudes", amplitudes);
-        GetComponent<Renderer>().material.SetFloatArray("_WaveLengths", wavelengths);
-        GetComponent<Renderer>().material.SetVectorArray("_WaveDirections", waveDirections);
-        GetComponent<Renderer>().material.SetVector("_LightPoint", Light.position);
-        
+
+        Renderer renderer = GetComponent<Renderer>();
+        renderer.material.SetFloat("_WaveCount", waves.Length);
+        renderer.material.SetFloatArray("_Amplitudes", amplitudes);
+        renderer.material.SetFloatArray("_WaveLengths", wavelengths);
+        renderer.material.SetVectorArray("_WaveDirections", waveDirections);
     }
 }

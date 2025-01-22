@@ -2,7 +2,7 @@ Shader "Unlit/WaterSineShader"
 {
     Properties
     {
-        _LightColor("Light Color", Color) = (1,1,1,1)
+        _WaterColor("Color", Color) = (1,1,1,1)
         _PeakVisibility("Peak Visibility", Range(0, 4)) = 3
         _Speed("Speed", Range(0, 1)) = 0.5
         _Smoothness("Smoothness", Range(0, 1)) = 0.5
@@ -34,6 +34,9 @@ Shader "Unlit/WaterSineShader"
                 float4 vertex : POSITION;
                 float4 normal : NORMAL;
                 float4 tangent : TANGENT;
+                // TEXCOORD1 is where Unity defines the global illumination
+                // This includes Light mapping from baked lighting
+                // and spherical harmonics for the light probes
                 float4 GILightingData : TEXCOORD1;
             };
 
@@ -45,32 +48,32 @@ Shader "Unlit/WaterSineShader"
                 float3 viewDirection : TEXCOORD3;
                 DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 6);
             };
-            
+
+            // Properties set via WaveProperties.cs
             int _WaveCount = 3;
             float _Amplitudes[3];
             float _WaveLengths[3];
             float2 _WaveDirections[3];
-
-            float4 _LightPoint; // TODO: Remove
-            half4 _LightColor;
+            
+            half4 _WaterColor;
             float _PeakVisibility, _Smoothness, _Metallic, _Speed;
             
             float3 addWave(float3 vertex, float amplitude, float2 waveDirection, float waveLength, inout float4 tangent, inout float4 binormal)
             {
+                // This follows the equations mentioned in the GPU Gems book (Finch and Worlds)
                 float k = (2 * PI) / waveLength;
-                float w = sqrt(9.81 / k);
+                float frequency = sqrt(9.81 / k);
                 float peak = (amplitude / k) * _PeakVisibility;
-                float waveDirSpeed = k * (dot(normalize(waveDirection), vertex.xz) - (w * _Time.y)) * _Speed;
+                float waveDirSpeed = k * (dot(normalize(waveDirection), vertex.xz) - (frequency * _Time.y)) * _Speed;
                 float y = peak * sin(waveDirSpeed);
                 float x = peak * cos(waveDirSpeed);
                 float z = peak * cos(waveDirSpeed);
-
+                // Calculating the derivative for the normal, tangent, and bitangent.
                 float3 waveDerivative = float3(
                     peak * cos(waveDirSpeed),
                     peak * sin(waveDirSpeed),
                     peak * cos(waveDirSpeed)
                 );
-
                 tangent.xyz += waveDerivative;
                 binormal.xyz += waveDerivative;
                 return float3(x, y, z);
@@ -79,21 +82,20 @@ Shader "Unlit/WaterSineShader"
             v2f vert (appdata v)
             {
                 v2f o;
-
+                o.worldPosition = TransformObjectToWorld(v.vertex);
+                // Set default values for the tangent and binormal
                 float4 tangent = float4(1, 0, 0, v.tangent.w);
 			    float4 binormal = float4(0, 0, 1, v.tangent.w);
-                
-                o.worldPosition = TransformObjectToWorld(v.vertex);
                 float3 waterDepth = 0;
+                // For each wave added, update the water depth value
                 for (int i = 0; i < _WaveCount; i++)
                 {
                   waterDepth += addWave(v.vertex, _Amplitudes[i], _WaveDirections[i], _WaveLengths[i], tangent, binormal);
                 }
                 v.vertex.xyz += waterDepth;
-                
+                // Update the normals for the lighting calculations
                 v.normal = float4(normalize(cross(binormal, tangent)), 1);
                 o.worldNormal = normalize(TransformObjectToWorldNormal(v.normal.xyz));
-                
                 o.vertex = TransformObjectToHClip(v.vertex);
                 o.viewDirection = normalize(GetWorldSpaceViewDir(o.worldPosition));
                 OUTPUT_LIGHTMAP_UV(v.GILightingData, unity_LightmapST, o.lightmapUV);
@@ -110,11 +112,11 @@ Shader "Unlit/WaterSineShader"
                 // Sampling the light map data
                 input_data.bakedGI = SAMPLE_GI(i.lightmapUV, i.vertexSH, i.worldNormal);
                 SurfaceData surface_data = (SurfaceData) 0;
-                surface_data.albedo = _LightColor;
+                surface_data.albedo = _WaterColor;
                 surface_data.metallic = _Metallic;
                 surface_data.smoothness = _Smoothness;
                 surface_data.occlusion = 1;
-                surface_data.alpha = _LightColor.a;
+                surface_data.alpha = _WaterColor.a;
                 
                 return UniversalFragmentPBR(input_data, surface_data);
             }
