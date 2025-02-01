@@ -25,7 +25,7 @@ Shader "Unlit/VelvetShader"
             #pragma fragment frag
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
 
-            #include "Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/ShaderLibrary/Lighting.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
             sampler2D _MainTexture, _NormalMap, _MetallicTexture, _OcclusionTexture;
 

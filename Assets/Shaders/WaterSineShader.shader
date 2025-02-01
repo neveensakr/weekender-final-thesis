@@ -13,7 +13,7 @@ Shader "Unlit/WaterSineShader"
         Tags { 
             "RenderType"="Transparent" 
             "Queue"="Transparent" 
-            "RenderPipeline" = "UniversalRenderPipeline"
+            "RenderPipeline" = "UniversalPipeline"
         }
         Blend SrcAlpha OneMinusSrcAlpha
         ZWrite Off
@@ -27,7 +27,7 @@ Shader "Unlit/WaterSineShader"
             // Allows multiple lights to impact the water
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
 
-            #include "Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/ShaderLibrary/Lighting.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
             struct appdata
             {
@@ -50,6 +50,7 @@ Shader "Unlit/WaterSineShader"
             };
 
             // Properties set via WaveProperties.cs
+            CBUFFER_START(UnityPerMaterial)
             int _WaveCount = 3;
             float _Amplitudes[3];
             float _WaveLengths[3];
@@ -57,6 +58,7 @@ Shader "Unlit/WaterSineShader"
             
             half4 _WaterColor;
             float _PeakVisibility, _Smoothness, _Metallic, _Speed;
+            CBUFFER_END
             
             float3 addWave(float3 vertex, float amplitude, float2 waveDirection, float waveLength, inout float4 tangent, inout float4 binormal)
             {
@@ -123,4 +125,6 @@ Shader "Unlit/WaterSineShader"
             ENDHLSL
         }
     }
+    
+    Fallback "Unlit/VelvetShader"
 }
