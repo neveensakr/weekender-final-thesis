@@ -34,5 +34,6 @@ public class SnowGlobe : Interactable
     public void StartSnow()
     {
         _snowEffect.Play();
+        Debug.Log("Started Snow");
     }
 }

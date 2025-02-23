@@ -115,9 +115,12 @@ public class Chess : Interactable
 
     public void ActivatePrompt()
     {
-        _promptUI.SetActive(true);
-        _closedChessBox.SetActive(false);
-        _initialPromptShown = true;
-        _expectPlayerInput = true;
+        if (IntroManager.Instance.CurrentGameMode == GameMode.InteractiveMode)
+        {
+            _promptUI.SetActive(true);
+            _closedChessBox.SetActive(false);
+            _initialPromptShown = true;
+            _expectPlayerInput = true;
+        }
     }
 }
