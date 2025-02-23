@@ -6,6 +6,7 @@ using UnityEngine.Playables;
 public class InteractionSequenceManager : MonoBehaviour
 {
     [SerializeField] private PlayableDirector[] sequences;
+    [SerializeField] private PlayableDirector elevatorScene;
 
     public void StartInteractionSequences()
     {
@@ -21,5 +22,6 @@ public class InteractionSequenceManager : MonoBehaviour
             sequence.Play();
             yield return new WaitForSeconds((float) sequence.duration);
         }
+        elevatorScene.Play();
     }
 }
