@@ -9,6 +9,7 @@ public class IntroManager : MonoBehaviour
     [SerializeField] private PlayableDirector _introSequence;
     [SerializeField] private PlayableDirector _loungeSequence;
     [SerializeField] private GameObject _playerCamera;
+    [SerializeField] private GameObject _UICamera;
     [SerializeField] private Rig _objectInteractionRig;
     
     public static IntroManager Instance;
@@ -34,6 +35,8 @@ public class IntroManager : MonoBehaviour
     public void ActivateIntroUI()
     {
         _introUI.SetActive(true);
+        _UICamera.SetActive(false);
+        _UICamera.SetActive(true);
         InputManager.Instance.EnableInput();
     }
 

@@ -1,14 +1,21 @@
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 
 public class Movement : MonoBehaviour
 {
     [SerializeField] private float _speed = 10f;
     [SerializeField] private Transform _camera;
+    
+    public static Movement Instance;
+    
     private Rigidbody _rigidbody;
     private Animator _animator;
     private bool _movementEnabled;
-    
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -51,5 +58,10 @@ public class Movement : MonoBehaviour
                 _rigidbody.angularVelocity = Vector3.zero;
             }
         }
+    }
+
+    public bool IsMoving()
+    {
+        return _rigidbody.velocity != Vector3.zero;
     }
 }
