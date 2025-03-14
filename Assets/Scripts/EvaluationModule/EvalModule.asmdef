@@ -1,10 +1,10 @@
 {
-    "name": "ManagerScripts",
+    "name": "EvalModule",
     "rootNamespace": "",
     "references": [
-        "GUID:a45e6a3e0cf216743ae8d23a1af9380e",
-        "GUID:7f7d1af65c2641843945d409d28f2e20",
-        "GUID:41fc50d9fcd91bf4da07e751e16ca99a"
+        "GUID:5540e30183c82e84b954c033c388e06c",
+        "GUID:fe25561d224ed4743af4c60938a59d0b",
+        "GUID:be0d2672886cc45b2bcea5a5053a5347"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

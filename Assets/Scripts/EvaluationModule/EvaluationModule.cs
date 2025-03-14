@@ -1,35 +1,50 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
+using Unity.Services.Core;
+using Unity.Services.Authentication;
+using Unity.Services.CloudSave;
 
 public class EvaluationModule : MonoBehaviour
 {
-    private static String _filename;
+    private static Dictionary<string, object> playerData;
+    
     private void Start()
     {
-
-        Directory.CreateDirectory(Application.streamingAssetsPath + "/User_Logs/");
-        _filename = Application.streamingAssetsPath + "/User_Logs/log_1.txt";
-        if (!File.Exists(_filename))
+        SetupCloudSave();
+        
+        playerData = new Dictionary<string, object>()
         {
-            File.WriteAllText(_filename, "Start Log At: " + Time.realtimeSinceStartup + "\n");
+            { "gameMode", "unknown" },
+        };
+        
+        foreach (EvaluationTrigger trigger in FindObjectsOfType<EvaluationTrigger>())
+        {
+            playerData.Add(trigger.TriggerLabel + "_triggered", false);
+            playerData.Add(trigger.TriggerLabel + "_duration_in_area", 0.0);
+            playerData.Add(trigger.TriggerLabel + "_times_triggered", 0);
         }
     }
 
-    public static void LogEntry(String entry)
+    private async void SetupCloudSave()
     {
-        File.AppendAllText(_filename, "[" + Time.realtimeSinceStartup + "]" + entry + "\n");
+        await UnityServices.InitializeAsync();
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        UpdatePlayerData();
+    }
+
+    private static async void UpdatePlayerData()
+    {
+        await CloudSaveService.Instance.Data.ForceSaveAsync(playerData);
+    }
+
+    public static void UpdateKey(string key, object value)
+    {
+        playerData[key] = value;
+        UpdatePlayerData();
     }
 
     private void OnApplicationQuit()
     {
-        foreach (EvaluationTrigger trigger in FindObjectsOfType<EvaluationTrigger>())
-        {
-            if (!trigger.EnteredTrigger())
-                File.AppendAllText(_filename,
-                    "[" + Time.realtimeSinceStartup + "] Trigger " + trigger.TriggerLabel + " was not triggered.\n");
-        }
-        File.AppendAllText(_filename, "[" + Time.realtimeSinceStartup + "] Game Closed.\n");
+        UpdatePlayerData();
     }
 }

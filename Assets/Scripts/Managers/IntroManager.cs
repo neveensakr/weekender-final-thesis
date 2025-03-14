@@ -44,7 +44,7 @@ public class IntroManager : MonoBehaviour
     {
         CurrentGameMode = GameMode.StoryMode;
         InputManager.Instance.DisableInput();
-        EvaluationModule.LogEntry("[IntroManager] Game Mode Chosen: Story Mode");
+        EvaluationModule.UpdateKey("gameMode", "Story");
         EndIntroSequence();
         _loungeSequence.Play();
     }
@@ -54,7 +54,7 @@ public class IntroManager : MonoBehaviour
         CurrentGameMode = GameMode.InteractiveMode;
         _playerCamera.SetActive(true);
         _objectInteractionRig.weight = 0;
-        EvaluationModule.LogEntry("[IntroManager] Game Mode Chosen: Interactive Mode");
+        EvaluationModule.UpdateKey("gameMode", "Interactive");
         EndIntroSequence();
     }
 

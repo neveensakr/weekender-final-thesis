@@ -6,7 +6,7 @@ using UnityEngine;
 public class EvaluationTrigger : MonoBehaviour
 {
     public String TriggerLabel = "";
-    private bool _hasEnterd = false;
+    private bool _hasEntered = false;
     private bool _playerInTrigger = false;
     private float _timeSinceEnter = 0;
     private float _totalTimeInTrigger = 0;
@@ -17,10 +17,9 @@ public class EvaluationTrigger : MonoBehaviour
         if (other.GetComponent<EvaluationPlayer>() && !_playerInTrigger)
         {
             _timeSinceEnter = 0;
-            _hasEnterd = true;
+            _hasEntered = true;
             _playerInTrigger = true;
             _timesEntered++;
-            EvaluationModule.LogEntry("[EvaluationTrigger - " + TriggerLabel + "] Entered At " + Time.realtimeSinceStartup);
         }
     }
 
@@ -37,8 +36,9 @@ public class EvaluationTrigger : MonoBehaviour
         if (other.GetComponent<EvaluationPlayer>() && _playerInTrigger)
         {
             _totalTimeInTrigger += _timeSinceEnter;
-            EvaluationModule.LogEntry("[EvaluationTrigger - " + TriggerLabel + "] Exited At " +
-                                      Time.realtimeSinceStartup);
+            EvaluationModule.UpdateKey(TriggerLabel + "_triggered", true);
+            EvaluationModule.UpdateKey(TriggerLabel + "_duration_in_area", _totalTimeInTrigger);
+            EvaluationModule.UpdateKey(TriggerLabel + "_times_triggered", _timesEntered);
             _timeSinceEnter = 0;
             _playerInTrigger = false;
         }
@@ -46,6 +46,6 @@ public class EvaluationTrigger : MonoBehaviour
 
     public bool EnteredTrigger()
     {
-        return _hasEnterd;
+        return _hasEntered;
     }
 }
