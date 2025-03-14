@@ -1,0 +1,33 @@
+Start Log At: 3.21592
+[47.64711][IntroManager] Game Mode Chosen: Interactive Mode
+[52.74608][EvaluationTrigger - SnowGlobeSeatingArea] Entered At 52.74606
+[55.19036][EvaluationTrigger - SnowGlobeSeatingArea] Exited At 55.19035
+[59.06986] Trigger CenterSeatingAreaII was not triggered.
+[59.07024] Game Closed.
+[55.97246][IntroManager] Game Mode Chosen: Story Mode
+[6.440072] Trigger SnowGlobeSeatingArea was not triggered.
+[6.440517] Trigger CenterSeatingAreaII was not triggered.
+[6.4407] Game Closed.
+[18.07068] Trigger SnowGlobeSeatingArea was not triggered.
+[18.07112] Trigger CenterSeatingAreaII was not triggered.
+[18.07134] Game Closed.
+[25.02016] Trigger SnowGlobeSeatingArea was not triggered.
+[25.02065] Trigger CenterSeatingAreaII was not triggered.
+[25.03089] Game Closed.
+[45.73837][IntroManager] Game Mode Chosen: Interactive Mode
+[51.64909][EvaluationTrigger - SnowGlobeSeatingArea] Entered At 51.64908
+[57.97789][EvaluationTrigger - SnowGlobeSeatingArea] Exited At 57.97789
+[61.96793][EvaluationTrigger - SnowGlobeSeatingArea] Entered At 61.96791
+[64.22855][EvaluationTrigger - SnowGlobeSeatingArea] Exited At 64.22855
+[68.98274] Trigger CenterSeatingAreaII was not triggered.
+[68.98309] Game Closed.
+[46.24362][IntroManager] Game Mode Chosen: Interactive Mode
+[63.12487][EvaluationTrigger - CenterSeatingAreaII] Entered At 63.12485
+[64.19979][EvaluationTrigger - CenterSeatingAreaII] Exited At 64.19978
+[66.26662][EvaluationTrigger - CenterSeatingAreaII] Entered At 66.26662
+[67.32442][EvaluationTrigger - CenterSeatingAreaII] Exited At 67.32442
+[68.12157][EvaluationTrigger - CenterSeatingAreaII] Entered At 68.12157
+[72.90691][EvaluationTrigger - CenterSeatingAreaII] Exited At 72.90691
+[76.75014][EvaluationTrigger - CenterSeatingAreaII] Entered At 76.75012
+[79.89297] Trigger SnowGlobeSeatingArea was not triggered.
+[79.89337] Game Closed.
