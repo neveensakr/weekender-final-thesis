@@ -17,8 +17,6 @@ public class InteractionSequenceManager : MonoBehaviour
     {
         foreach (PlayableDirector sequence in sequences)
         {
-            Debug.Log(sequence.name);
-            Debug.Log(sequence.duration);
             sequence.Play();
             yield return new WaitForSeconds((float) sequence.duration);
         }

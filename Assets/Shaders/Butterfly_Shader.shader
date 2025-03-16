@@ -11,7 +11,6 @@ Shader "Unlit/Butterfly_Shader"
         Tags { 
             "RenderType"="Transparent" 
             "Queue"="Transparent" 
-            "RenderPipeline" = "UniversalRenderPipeline"
         }
         Blend SrcAlpha OneMinusSrcAlpha
         ZWrite Off
