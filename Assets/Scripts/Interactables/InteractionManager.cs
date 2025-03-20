@@ -11,6 +11,7 @@ public class InteractionManager : MonoBehaviour
     public static InteractionManager Instance;
     public Interactable CurrentInteractable { get; private set; }
     private bool _interactionStarted;
+    private Vector3 _originalPlayerPosition;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class InteractionManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.X) && !_interactionStarted)
             {
                 _interactUI.SetActive(false);
+                _originalPlayerPosition = _player.transform.position;
                 InputManager.Instance.DisableInput();
                 CurrentInteractable.StartInteraction(_player);
                 _interactionStarted = true;
@@ -46,6 +48,7 @@ public class InteractionManager : MonoBehaviour
 
     private void InteractionEnded()
     {
+        _player.transform.position = _originalPlayerPosition;
         CurrentInteractable = null;
         _interactionStarted = false;
         _interactUI.SetActive(false);
