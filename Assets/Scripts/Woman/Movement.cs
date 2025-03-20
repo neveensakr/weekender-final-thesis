@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     
     private Rigidbody _rigidbody;
     private Animator _animator;
+    private CapsuleCollider _collider;
     private bool _movementEnabled;
 
     private void Awake()
@@ -20,6 +21,7 @@ public class Movement : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
+        _collider = GetComponent<CapsuleCollider>();
     }
 
     void Update()
@@ -30,6 +32,7 @@ public class Movement : MonoBehaviour
             {
                 _movementEnabled = true;
                 GetComponent<FollowTarget>().enabled = false;
+                _collider.enabled = true;
             }
             
             _animator.SetBool("isWalking", _rigidbody.velocity != Vector3.zero);

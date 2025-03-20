@@ -11,6 +11,7 @@ public class IntroManager : MonoBehaviour
     [SerializeField] private GameObject _playerCamera;
     [SerializeField] private GameObject _UICamera;
     [SerializeField] private Rig _objectInteractionRig;
+    [SerializeField] private GameObject _womanOutfit;
     
     public static IntroManager Instance;
     public GameMode CurrentGameMode { get; private set; }
@@ -27,8 +28,8 @@ public class IntroManager : MonoBehaviour
     {
         if (InputManager.Instance.InputActivated && CurrentGameMode == GameMode.Default)
         {
-            if (Input.GetKeyDown(KeyCode.A)) ActivateInteractiveMode();
-            if (Input.GetKeyDown(KeyCode.B)) ActivateStoryMode();
+            if (Input.GetKeyDown(KeyCode.A)) ActivateStoryMode();
+            if (Input.GetKeyDown(KeyCode.B)) ActivateInteractiveMode();
         }
     }
 
@@ -54,6 +55,7 @@ public class IntroManager : MonoBehaviour
         CurrentGameMode = GameMode.InteractiveMode;
         _playerCamera.SetActive(true);
         _objectInteractionRig.weight = 0;
+        _womanOutfit.SetActive(true);
         EvaluationModule.UpdateKey("gameMode", "Interactive");
         EndIntroSequence();
     }

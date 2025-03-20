@@ -13,6 +13,7 @@ public class Chess : Interactable
     [SerializeField] private Image _backProgress;
     [SerializeField] private GameObject _chessCamera;
     [SerializeField] private GameObject _closedChessBox;
+    [SerializeField] private GameObject _chessBoardFrame;
     [SerializeField] private PlayableDirector _sequence;
     [SerializeField] private Transform _targetPlayerTransform;
     private bool _initialPromptShown;
@@ -101,6 +102,7 @@ public class Chess : Interactable
         _gameEndedUI.SetActive(false);
         _hudUI.SetActive(false);
         _chessCamera.SetActive(false);
+        _chessBoardFrame.SetActive(false);
         _closedChessBox.SetActive(true);
         if (_gameEnded || _gameInprogress) ChessGameManager.Instance.ResetGame();
         _startedExitTimer = false;
@@ -118,6 +120,7 @@ public class Chess : Interactable
         if (IntroManager.Instance.CurrentGameMode == GameMode.InteractiveMode)
         {
             _promptUI.SetActive(true);
+            _chessBoardFrame.SetActive(true);
             _closedChessBox.SetActive(false);
             _initialPromptShown = true;
             _expectPlayerInput = true;
