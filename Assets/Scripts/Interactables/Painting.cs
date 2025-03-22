@@ -20,15 +20,16 @@ public class Painting : Interactable
     public override void ExitInteraction()
     {
         Debug.Log("[Painting] Exiting Interaction...");
+        foreach (Animator butterfly in _butterflies)
+            butterfly.SetBool("StartFlying", false);
+        
         if (IntroManager.Instance.CurrentGameMode == GameMode.InteractiveMode)
             onEnd.Invoke();
     }
 
     public void StartFlyingEffect()
     {
-        foreach (Animator butterfly in _butterflies)
-        {
+        foreach (Animator butterfly in _butterflies) 
             butterfly.SetBool("StartFlying", true);
-        }
     }
 }
