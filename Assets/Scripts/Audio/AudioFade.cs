@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,11 @@ public class AudioFade : MonoBehaviour
 {
     [SerializeField] private AudioMixer _audioMixer;
     public float crossFadeTime = 1.0f;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject.transform.parent);
+    }
 
     public void TransitionToLounge()
     {

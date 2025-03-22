@@ -3021,6 +3021,7 @@ GameObject:
   - component: {fileID: 125539255}
   - component: {fileID: 125539256}
   - component: {fileID: 125539257}
+  - component: {fileID: 125539258}
   m_Layer: 0
   m_Name: InElevator_Virtual Camera
   m_TagString: Untagged
@@ -3104,6 +3105,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &125539258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125539254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FocusTracksTarget: 0
+  m_FocusTracking: 0
+  m_FocusTarget: {fileID: 0}
+  m_FocusOffset: 0
+  m_Profile: {fileID: 11400000, guid: 323ecafe0c8a4314687f28062cceab41, type: 2}
 --- !u!1001 &130484614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3259,6 +3277,7 @@ GameObject:
   - component: {fileID: 143276330}
   - component: {fileID: 143276331}
   - component: {fileID: 143276332}
+  - component: {fileID: 143276333}
   m_Layer: 0
   m_Name: Dolly Tennis - Virtual Camera
   m_TagString: Untagged
@@ -3342,6 +3361,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &143276333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143276329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FocusTracksTarget: 0
+  m_FocusTracking: 0
+  m_FocusTarget: {fileID: 0}
+  m_FocusOffset: 0
+  m_Profile: {fileID: 11400000, guid: 323ecafe0c8a4314687f28062cceab41, type: 2}
 --- !u!1 &145252264
 GameObject:
   m_ObjectHideFlags: 3
@@ -7619,6 +7655,7 @@ GameObject:
   - component: {fileID: 455104623}
   - component: {fileID: 455104626}
   - component: {fileID: 455104625}
+  - component: {fileID: 455104627}
   m_Layer: 0
   m_Name: Light - Virtual Camera
   m_TagString: Untagged
@@ -7702,6 +7739,23 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2025293956}
+--- !u!114 &455104627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455104622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FocusTracksTarget: 0
+  m_FocusTracking: 0
+  m_FocusTarget: {fileID: 0}
+  m_FocusOffset: 0
+  m_Profile: {fileID: 11400000, guid: 323ecafe0c8a4314687f28062cceab41, type: 2}
 --- !u!4 &459649492 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1996157849513925600, guid: 817c6b18e4d54834b9b2d31ce943999f,
@@ -12371,6 +12425,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7641317575012470016, guid: 5dde1c25ee2ca0e4898f9b466fb13696,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b20877ae47880fd49b532a78f68e8286, type: 2}
     - target: {fileID: -5514002316592468113, guid: 5dde1c25ee2ca0e4898f9b466fb13696,
         type: 3}
       propertyPath: m_IsActive
@@ -12386,21 +12445,51 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -2174819418786095640, guid: 5dde1c25ee2ca0e4898f9b466fb13696,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a761a9365b1477b48a034a4346b5b675, type: 2}
+    - target: {fileID: 313336089569149009, guid: 5dde1c25ee2ca0e4898f9b466fb13696,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3c1b6febd024ad44d805786c1f19a771, type: 2}
     - target: {fileID: 919132149155446097, guid: 5dde1c25ee2ca0e4898f9b466fb13696,
         type: 3}
       propertyPath: m_Name
       value: Luxury Yacht 3D Model
       objectReference: {fileID: 0}
+    - target: {fileID: 1481929569612279670, guid: 5dde1c25ee2ca0e4898f9b466fb13696,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0e29161c2f309734fbb7ea6a5f3cad4e, type: 2}
     - target: {fileID: 2833909606085039037, guid: 5dde1c25ee2ca0e4898f9b466fb13696,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3436302773879013618, guid: 5dde1c25ee2ca0e4898f9b466fb13696,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 76aeb4b115fad954f9dd2c111eface1e, type: 2}
     - target: {fileID: 4630233358319224554, guid: 5dde1c25ee2ca0e4898f9b466fb13696,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4934380681373392739, guid: 5dde1c25ee2ca0e4898f9b466fb13696,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47c4685aea9c9b94886b580ab7889c74, type: 2}
+    - target: {fileID: 4958966887625018459, guid: 5dde1c25ee2ca0e4898f9b466fb13696,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b0e710168eea0564eb20903f7ed75dd0, type: 2}
     - target: {fileID: 6981854034757986289, guid: 5dde1c25ee2ca0e4898f9b466fb13696,
         type: 3}
       propertyPath: m_IsActive
@@ -18307,6 +18396,7 @@ GameObject:
   - component: {fileID: 1053160967}
   - component: {fileID: 1053160969}
   - component: {fileID: 1053160968}
+  - component: {fileID: 1053160970}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -18390,6 +18480,23 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1883675925}
+--- !u!114 &1053160970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053160966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FocusTracksTarget: 0
+  m_FocusTracking: 0
+  m_FocusTarget: {fileID: 0}
+  m_FocusOffset: 0
+  m_Profile: {fileID: 11400000, guid: 323ecafe0c8a4314687f28062cceab41, type: 2}
 --- !u!1001 &1057265307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22139,6 +22246,7 @@ GameObject:
   - component: {fileID: 1190461762}
   - component: {fileID: 1190461763}
   - component: {fileID: 1190461764}
+  - component: {fileID: 1190461765}
   m_Layer: 0
   m_Name: LoungeEntrance Camera
   m_TagString: Untagged
@@ -22222,6 +22330,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1190461765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190461761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FocusTracksTarget: 0
+  m_FocusTracking: 0
+  m_FocusTarget: {fileID: 0}
+  m_FocusOffset: 0
+  m_Profile: {fileID: 11400000, guid: 323ecafe0c8a4314687f28062cceab41, type: 2}
 --- !u!1001 &1192324697
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30842,6 +30967,7 @@ GameObject:
   - component: {fileID: 1730175561}
   - component: {fileID: 1730175562}
   - component: {fileID: 1730175563}
+  - component: {fileID: 1730175564}
   m_Layer: 0
   m_Name: EnteringElevator_Virtual Camera
   m_TagString: Untagged
@@ -30925,6 +31051,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1730175564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730175560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FocusTracksTarget: 0
+  m_FocusTracking: 0
+  m_FocusTarget: {fileID: 0}
+  m_FocusOffset: 0
+  m_Profile: {fileID: 11400000, guid: 323ecafe0c8a4314687f28062cceab41, type: 2}
 --- !u!1 &1736656244
 GameObject:
   m_ObjectHideFlags: 0
@@ -34957,6 +35100,7 @@ GameObject:
   - component: {fileID: 2088299691}
   - component: {fileID: 2088299693}
   - component: {fileID: 2088299692}
+  - component: {fileID: 2088299694}
   m_Layer: 0
   m_Name: YachtDollyCamera
   m_TagString: Untagged
@@ -35040,6 +35184,23 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1525506554}
+--- !u!114 &2088299694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088299690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FocusTracksTarget: 0
+  m_FocusTracking: 0
+  m_FocusTarget: {fileID: 0}
+  m_FocusOffset: 0
+  m_Profile: {fileID: 11400000, guid: 323ecafe0c8a4314687f28062cceab41, type: 2}
 --- !u!43 &2099282518
 Mesh:
   m_ObjectHideFlags: 0
@@ -35289,6 +35450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2124416040}
   - component: {fileID: 2124416041}
+  - component: {fileID: 2124416042}
   m_Layer: 0
   m_Name: ElevatorPad_Virtual Camera
   m_TagString: Untagged
@@ -35351,6 +35513,23 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 696225509}
+--- !u!114 &2124416042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124416039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FocusTracksTarget: 0
+  m_FocusTracking: 0
+  m_FocusTarget: {fileID: 0}
+  m_FocusOffset: 0
+  m_Profile: {fileID: 11400000, guid: 323ecafe0c8a4314687f28062cceab41, type: 2}
 --- !u!1001 &13632900932207725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40068,12 +40247,12 @@ PrefabInstance:
     - target: {fileID: 4503016626774203594, guid: 817c6b18e4d54834b9b2d31ce943999f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.018879535
+      value: 0.018879531
       objectReference: {fileID: 0}
     - target: {fileID: 4503016626774203594, guid: 817c6b18e4d54834b9b2d31ce943999f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00067197473
+      value: 0.00067197456
       objectReference: {fileID: 0}
     - target: {fileID: 5399664794240375652, guid: 817c6b18e4d54834b9b2d31ce943999f,
         type: 3}
@@ -41729,17 +41908,17 @@ PrefabInstance:
     - target: {fileID: 1005857072647864034, guid: 1b1ffd8403f63a640b4d8ddd8bd1d53e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.2494203
+      value: -0.24942032
       objectReference: {fileID: 0}
     - target: {fileID: 1005857072647864034, guid: 1b1ffd8403f63a640b4d8ddd8bd1d53e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.22085318
+      value: 0.2208532
       objectReference: {fileID: 0}
     - target: {fileID: 1005857072647864034, guid: 1b1ffd8403f63a640b4d8ddd8bd1d53e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.058535572
+      value: 0.05853558
       objectReference: {fileID: 0}
     - target: {fileID: 1418477526751495272, guid: 1b1ffd8403f63a640b4d8ddd8bd1d53e,
         type: 3}
@@ -44195,17 +44374,17 @@ PrefabInstance:
     - target: {fileID: 947198837794535114, guid: c95938566a5a0b740bb90d65addfd928,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.103917986
+      value: 0.10391799
       objectReference: {fileID: 0}
     - target: {fileID: 947198837794535114, guid: c95938566a5a0b740bb90d65addfd928,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.035100628
+      value: 0.035100643
       objectReference: {fileID: 0}
     - target: {fileID: 947198837794535114, guid: c95938566a5a0b740bb90d65addfd928,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0036697534
+      value: -0.0036697555
       objectReference: {fileID: 0}
     - target: {fileID: 3517729038569974916, guid: c95938566a5a0b740bb90d65addfd928,
         type: 3}
