@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.Events;
 using UnityEngine.Playables;
 
 public class IntroManager : MonoBehaviour
 {
+    public UnityEvent OnInteractiveMode = new UnityEvent();
     [SerializeField] private GameObject _introUI;
     [SerializeField] private PlayableDirector _introSequence;
     [SerializeField] private PlayableDirector _loungeSequence;
@@ -53,6 +55,7 @@ public class IntroManager : MonoBehaviour
     public void ActivateInteractiveMode()
     {
         CurrentGameMode = GameMode.InteractiveMode;
+        OnInteractiveMode.Invoke();
         _playerCamera.SetActive(true);
         _objectInteractionRig.weight = 0;
         _womanOutfit.SetActive(true);
