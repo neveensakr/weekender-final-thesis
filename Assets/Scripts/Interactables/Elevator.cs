@@ -12,6 +12,7 @@ public class Elevator : Interactable
         Debug.Log("[Elevator] Starting Interaction...");
         player.transform.position = new Vector3(_targetPlayerTransform.position.x, 
             player.transform.position.y, _targetPlayerTransform.position.z);
+        InteractionManager.Instance.SetInteractUIVisibility(false);
         _sequence.Play();
     }
 
